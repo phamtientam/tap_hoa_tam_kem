@@ -1,0 +1,2363 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tạp Hóa Tâm Kem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"/>
+<!-- Fallback fonts if above unavailable -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* =============================================
+   ROOT & RESET
+============================================= */
+:root {
+  --gold: #f0a500;
+  --gold2: #ffcc55;
+  --amber: #e67e00;
+  --bg: #05060a;
+  --bg2: #090c14;
+  --surface: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.07);
+  --text: #f0ece4;
+  --muted: #5a5f6e;
+  --font-display: 'Bebas Neue', 'Clash Display', sans-serif;
+  --font-body: 'DM Sans', 'Cabinet Grotesk', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* =============================================
+   CUSTOM CURSOR
+============================================= */
+#cursor {
+  position: fixed;
+  width: 12px; height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: difference;
+}
+#cursor-ring {
+  position: fixed;
+  width: 40px; height: 40px;
+  border: 1.5px solid rgba(240,165,0,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.12s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
+}
+body:hover #cursor-ring { opacity: 1; }
+.cursor-grow #cursor { width: 28px; height: 28px; }
+.cursor-grow #cursor-ring { width: 60px; height: 60px; border-color: var(--gold); }
+
+/* =============================================
+   NOISE TEXTURE OVERLAY
+============================================= */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9990;
+}
+
+/* =============================================
+   NAV
+============================================= */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.5s;
+}
+nav.solid {
+  padding: 1rem 3rem;
+  background: rgba(5,6,10,0.8);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 2.5rem; align-items: center; }
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+  cursor: none;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  padding: 0.6rem 1.5rem;
+  background: var(--gold);
+  color: #000 !important;
+  border-radius: 999px;
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  transition: all 0.25s !important;
+}
+.nav-cta:hover { background: var(--gold2) !important; transform: scale(1.03); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: all 0.3s; }
+
+/* =============================================
+   HERO
+============================================= */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Animated gradient background */
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 100% 80% at 50% -10%, rgba(240,165,0,0.12) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 50% at 80% 60%, rgba(230,126,0,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse 40% 40% at 10% 80%, rgba(255,180,0,0.04) 0%, transparent 60%),
+              #05060a;
+}
+
+/* Animated grid */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(240,165,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,165,0,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 80%);
+  animation: gridPulse 8s ease-in-out infinite;
+}
+@keyframes gridPulse {
+  0%,100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Morphing blob */
+.hero-blob {
+  position: absolute;
+  top: -20%;
+  right: -15%;
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(circle, rgba(240,165,0,0.08) 0%, transparent 70%);
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: blobMorph 12s ease-in-out infinite;
+  filter: blur(40px);
+}
+@keyframes blobMorph {
+  0%,100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(0deg) scale(1); }
+  33%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(60deg) scale(1.1); }
+  66%  { border-radius: 70% 30% 50% 50% / 30% 50% 70% 60%; transform: rotate(120deg) scale(0.95); }
+}
+.hero-blob2 {
+  position: absolute;
+  bottom: -10%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(100,200,255,0.05) 0%, transparent 70%);
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  animation: blobMorph 16s ease-in-out infinite reverse;
+  filter: blur(60px);
+}
+
+/* Floating orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  animation: floatOrb linear infinite;
+}
+.orb1 { width:4px; height:4px; background:var(--gold); top:20%; left:15%; animation-duration:20s; opacity:0.7; }
+.orb2 { width:3px; height:3px; background:#60c8ff; top:60%; left:80%; animation-duration:25s; animation-delay:-8s; opacity:0.5; }
+.orb3 { width:5px; height:5px; background:var(--gold2); top:80%; left:25%; animation-duration:18s; animation-delay:-5s; opacity:0.4; }
+.orb4 { width:2px; height:2px; background:#fff; top:40%; left:70%; animation-duration:22s; animation-delay:-12s; opacity:0.6; }
+.orb5 { width:6px; height:6px; background:var(--amber); top:15%; left:60%; animation-duration:30s; animation-delay:-3s; opacity:0.3; }
+@keyframes floatOrb {
+  0%   { transform: translateY(0) translateX(0); }
+  25%  { transform: translateY(-40px) translateX(20px); }
+  50%  { transform: translateY(-20px) translateX(-20px); }
+  75%  { transform: translateY(30px) translateX(10px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+
+/* Hero content */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 3rem;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s 0.3s forwards;
+}
+.eyebrow-dot {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(240,165,0,0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(240,165,0,0); }
+}
+.eyebrow-text {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 14vw, 13rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #fff;
+  overflow: hidden;
+  perspective: 1000px; /* Add 3D perspective */
+  text-shadow: 0 0 20px rgba(240,165,0,0.5), 0 0 40px rgba(240,165,0,0.3); /* Mystical glow */
+  filter: drop-shadow(0 0 10px rgba(240,165,0,0.4)); /* Additional glow */
+}
+.title-line {
+  display: block;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+.title-line-inner {
+  display: block;
+  transform: translateY(110%) rotateX(90deg); /* Start rotated in 3D */
+  animation: lineReveal3D 1.2s cubic-bezier(0.77,0,0.175,1) forwards, floatMystical 4s ease-in-out 1.8s infinite;
+  transform-origin: center bottom;
+}
+.title-line:nth-child(1) .title-line-inner { animation-delay: 0.4s; }
+.title-line:nth-child(2) .title-line-inner { animation-delay: 0.6s; }
+.title-grad {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 40%, #ff9a3c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none; /* Remove shadow for gradient text */
+}
+@keyframes lineReveal3D {
+  0% { transform: translateY(110%) rotateX(90deg) scale(0.8); opacity: 0; }
+  50% { transform: translateY(50%) rotateX(45deg) scale(1.1); opacity: 0.5; }
+  100% { transform: translateY(0) rotateX(0deg) scale(1); opacity: 1; }
+}
+@keyframes floatMystical {
+  0%, 100% { transform: translateY(0) rotateX(0deg) scale(1); }
+  25% { transform: translateY(-5px) rotateX(1deg) scale(1.02); }
+  50% { transform: translateY(-10px) rotateX(0deg) scale(1); }
+  75% { transform: translateY(-5px) rotateX(-1deg) scale(1.02); }
+}
+
+.hero-sub {
+  margin-top: 2.5rem;
+  max-width: 520px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(240,236,228,0.55);
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s 1s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s 1.2s forwards;
+}
+@keyframes fadeSlideUp {
+  from { opacity:0; transform: translateY(24px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2.2rem;
+  background: var(--gold);
+  color: #000;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: none;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+  opacity:0;
+  transition: opacity 0.3s;
+}
+.btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 16px 40px rgba(240,165,0,0.4); }
+.btn-primary:hover::before { opacity:1; }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2.2rem;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-decoration: none;
+  cursor: none;
+  transition: all 0.3s;
+  backdrop-filter: blur(8px);
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); background: rgba(240,165,0,0.05); }
+
+.btn-zalo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2.2rem;
+  background: rgba(0,104,255,0.12);
+  color: #60a5fa;
+  border: 1px solid rgba(0,104,255,0.25);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  cursor: none;
+  transition: all 0.3s;
+}
+.btn-zalo:hover { background: rgba(0,104,255,0.22); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,104,255,0.2); }
+.zalo-z {
+  width: 22px; height: 22px;
+  background: #0068ff;
+  border-radius: 6px;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:900; font-size:0.7rem; color:#fff; line-height:1;
+}
+
+/* Scroll hint */
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeSlideUp 1s 1.8s forwards;
+}
+.scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%,100% { transform: scaleY(1); transform-origin: top; opacity:1; }
+  50% { transform: scaleY(0.3); transform-origin: bottom; opacity:0.5; }
+}
+.scroll-txt {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  writing-mode: vertical-rl;
+}
+
+/* Floating badge */
+.hero-badge {
+  position: absolute;
+  top: 30%;
+  right: 8%;
+  background: rgba(240,165,0,0.08);
+  border: 1px solid rgba(240,165,0,0.2);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s 1.4s forwards;
+}
+.hero-badge-num {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.hero-badge-label { font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; color: #b4bbcf; margin-top: 0.3rem; font-family: Montserrat;}
+
+/* =============================================
+   MARQUEE STRIP
+============================================= */
+.marquee-section {
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: rgba(240,165,0,0.03);
+  padding: 1rem 0;
+}
+.marquee-track {
+  display: flex;
+  gap: 3rem;
+  animation: marquee 20s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  white-space: nowrap;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.marquee-item span { color: var(--gold); font-size: 1rem; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* =============================================
+   ABOUT
+============================================= */
+#about {
+  position: relative;
+  padding: 10rem 3rem;
+  overflow: hidden;
+}
+.about-bg-text {
+  position: absolute;
+  top: 0; left: -2%;
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 20vw, 18rem);
+  color: rgba(240,165,0,0.03);
+  letter-spacing: -0.05em;
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+}
+.about-grid {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
+  align-items: start;
+}
+
+/* Avatar / Photo side */
+.about-visual {
+  position: relative;
+}
+.about-photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: 30px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(240,165,0,0.08), rgba(0,0,0,0) 50%),
+              var(--bg2);
+  border: 1px solid rgba(240,165,0,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.about-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo-placeholder-icon {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo-placeholder-text {
+  font-size: 0.75rem;
+  color: #f1f5f9;
+  letter-spacing: 0.08em;
+  background: rgba(0,0,0,0.35);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  position: absolute;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  right: 0.8rem;
+  text-align: center;
+}
+
+/* Floating cards on photo */
+.float-card {
+  position: absolute;
+  background: rgba(10,12,20,0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+}
+.float-card-1 {
+  bottom: 2rem; left: -2rem;
+  animation: floatCardA 6s ease-in-out infinite;
+}
+.float-card-2 {
+  top: 2rem; right: -2rem;
+  animation: floatCardB 5s ease-in-out infinite;
+}
+@keyframes floatCardA {
+  0%,100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+@keyframes floatCardB {
+  0%,100% { transform: translateY(0) rotate(1deg); }
+  50% { transform: translateY(10px) rotate(-1deg); }
+}
+.float-card-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.3rem; }
+.float-card-value { font-family: var(--font-display); font-size: 1.6rem; color: var(--gold); line-height: 1; }
+.float-card-sub { font-size: 0.7rem; color: var(--muted); margin-top: 0.2rem; }
+
+/* About text */
+.about-text-side {}
+.section-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.section-eyebrow::before {
+  content:'';
+  width: 30px; height: 1px;
+  background: var(--gold);
+  display: block;
+}
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+.about-story p {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: rgba(240,236,228,0.55);
+  margin-bottom: 1.2rem;
+}
+.about-story strong { color: rgba(240,236,228,0.9); font-weight: 600; }
+.about-highlight {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(240,165,0,0.05);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 12px 12px 0;
+  font-size: 0.95rem;
+  color: var(--gold);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* Timeline */
+.timeline {
+  margin-top: 3rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+.timeline::before {
+  content:'';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--gold) 15%, rgba(240,165,0,0.3) 85%, transparent);
+}
+.tl-item {
+  position: relative;
+  padding-bottom: 2rem;
+  padding-left: 1.5rem;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.tl-item.vis { opacity:1; transform: translateX(0); }
+.tl-dot {
+  position: absolute;
+  left: -0.6rem;
+  top: 0.45rem;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+}
+.tl-dot-gold { background: var(--gold); box-shadow: 0 0 10px rgba(240,165,0,0.6); }
+.tl-dot-sky  { background: #38bdf8; }
+.tl-dot-em   { background: #34d399; }
+.tl-dot-rose { background: #f87171; }
+.tl-year {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+.tl-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: #e5e7eb;
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.02em;
+}
+.tl-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+/* =============================================
+   SERVICES
+============================================= */
+#services {
+  padding: 8rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.services-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(240,165,0,0.05) 0%, transparent 70%);
+}
+.section-header {
+  max-width: 1300px;
+  margin: 0 auto 5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.section-header-left {}
+.section-header-right {
+  max-width: 360px;
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.8;
+  text-align: right;
+}
+.services-grid {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.svc-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.5rem;
+  overflow: hidden;
+  cursor: none;
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  group: true;
+}
+.svc-card-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s;
+  border-radius: 24px;
+  pointer-events: none;
+}
+.svc-card:hover { border-color: rgba(240,165,0,0.25); transform: translateY(-8px); box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(240,165,0,0.06); }
+.svc-card:hover .svc-card-glow { opacity: 1; }
+.svc-card-glow-gold { background: radial-gradient(ellipse at 50% 0%, rgba(240,165,0,0.08) 0%, transparent 70%); }
+.svc-card-glow-sky  { background: radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.07) 0%, transparent 70%); }
+.svc-card-glow-em   { background: radial-gradient(ellipse at 50% 0%, rgba(52,211,153,0.07) 0%, transparent 70%); }
+
+.svc-icon {
+  width: 60px; height: 60px;
+  border-radius: 16px;
+  display: flex; align-items:center; justify-content:center;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  transition: transform 0.3s;
+}
+.svc-card:hover .svc-icon { transform: scale(1.1) rotate(-5deg); }
+.svc-icon-gold { background: rgba(240,165,0,0.1); border: 1px solid rgba(240,165,0,0.2); }
+.svc-icon-sky  { background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.2); }
+.svc-icon-em   { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); }
+
+.svc-num {
+  position: absolute;
+  top: 2rem; right: 2rem;
+  font-family: var(--font-display);
+  font-size: 4rem;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+  transition: color 0.3s;
+}
+.svc-card:hover .svc-num { color: rgba(240,165,0,0.06); }
+
+.svc-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.03em;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.svc-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+.svc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.svc-tag {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: rgba(255,255,255,0.02);
+}
+.svc-arrow {
+  position: absolute;
+  bottom: 2rem; right: 2rem;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex; align-items:center; justify-content:center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+.svc-card:hover .svc-arrow { background: var(--gold); border-color: var(--gold); color: #000; transform: rotate(-45deg); }
+
+/* =============================================
+   PRODUCTS
+============================================= */
+#products {
+  padding: 8rem 0 8rem 3rem;
+  overflow: hidden;
+}
+.products-intro {
+  max-width: 1300px;
+  margin: 0 auto 4rem;
+  padding-right: 3rem;
+}
+.cat-section { margin-bottom: 5rem; }
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.cat-badge {
+  display: inline-flex; align-items:center; gap:0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.cat-badge-gold { background: rgba(240,165,0,0.1); border: 1px solid rgba(240,165,0,0.25); color: var(--gold); }
+.cat-badge-green { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); color: #34d399; }
+.cat-badge-orange { background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.2); color: #f97316; }
+.cat-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 0.03em;
+  color: #fff;
+}
+
+/* Horizontal scroll track */
+.h-scroll-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-right: 3rem;
+  padding-bottom: 1rem;
+  scrollbar-width: none;
+  cursor: grab;
+}
+.h-scroll-track::-webkit-scrollbar { display: none; }
+.h-scroll-track:active { cursor: grabbing; }
+
+.prod-card {
+  flex: 0 0 280px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+  cursor: none;
+}
+.prod-card:hover { border-color: rgba(240,165,0,0.2); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+.prod-img {
+  height: 180px;
+  display: flex; align-items:center; justify-content:center;
+  position: relative;
+  overflow: hidden;
+}
+.prod-img-grad-gold { background: linear-gradient(135deg, rgba(240,165,0,0.12), rgba(0,0,0,0.3)), var(--bg); }
+.prod-img-grad-green { background: linear-gradient(135deg, rgba(52,211,153,0.1), rgba(0,0,0,0.3)), var(--bg); }
+.prod-img-grad-orange { background: linear-gradient(135deg, rgba(249,115,22,0.1), rgba(0,0,0,0.3)), var(--bg); }
+.prod-img-icon {
+  font-size: 3.5rem;
+  opacity: 0.9;
+  transform: scale(1);
+  transition: transform 0.4s, opacity 0.4s;
+}
+.prod-img-icon img{
+    width: 100%;
+  }
+.prod-card:hover .prod-img-icon { transform: scale(1.15) rotate(5deg); opacity: 0.6; }
+.prod-badge {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+.prod-badge-gold   { background: rgba(240,165,0,0.15); border:1px solid rgba(240,165,0,0.3); color:var(--gold); }
+.prod-badge-green  { background: rgba(52,211,153,0.12); border:1px solid rgba(52,211,153,0.25); color:#34d399; }
+.prod-badge-orange { background: rgba(249,115,22,0.12); border:1px solid rgba(249,115,22,0.25); color:#f97316; }
+
+.prod-body { padding: 1.25rem; }
+.prod-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  color: #e5e7eb;
+  margin-bottom: 0.5rem;
+}
+.prod-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.1rem; }
+.prod-btn {
+  display: inline-flex; align-items:center; gap: 0.4rem;
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: none;
+  transition: all 0.25s;
+}
+.prod-btn-gold   { background: rgba(240,165,0,0.1); border:1px solid rgba(240,165,0,0.25); color:var(--gold); }
+.prod-btn-gold:hover   { background:var(--gold); color:#000; }
+.prod-btn-green  { background: rgba(52,211,153,0.08); border:1px solid rgba(52,211,153,0.2); color:#34d399; }
+.prod-btn-green:hover  { background:#34d399; color:#000; }
+.prod-btn-orange { background: rgba(249,115,22,0.08); border:1px solid rgba(249,115,22,0.2); color:#f97316; }
+.prod-btn-orange:hover { background:#f97316; color:#000; }
+
+/* =============================================
+   PRODUCTS SECTION
+============================================= */
+#products {
+  padding: 8rem 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* =============================================
+   RESPONSIVE FOR PRODUCTS
+============================================= */
+@media (max-width: 768px) {
+  #products {
+    padding: 4rem 1rem;
+  }
+  .products-intro {
+    padding-right: 0;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  .products-intro .section-heading {
+    font-size: 2.5rem;
+  }
+  .products-intro p {
+    max-width: none;
+    font-size: 0.9rem;
+  }
+  .cat-section {
+    margin-bottom: 3rem;
+  }
+  .cat-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .cat-title {
+    font-size: 1.2rem;
+  }
+  .h-scroll-track {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    overflow-x: visible;
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+  .prod-card {
+    flex: none;
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+  }
+  .prod-img {
+    height: 140px;
+  }
+  .prod-img-icon {
+    font-size: 2.5rem;
+  }
+  .prod-img-icon img{
+    width: 100%;
+  }
+  .prod-body {
+    padding: 1rem;
+  }
+  .prod-name {
+    font-size: 0.9rem;
+  }
+  .prod-desc {
+    font-size: 0.7rem;
+  }
+  .prod-btn {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+  }
+  .hero-badge {
+    display: block;
+    right: 1rem;
+    top: 20%;
+    padding: 0.8rem 1rem;
+  }
+  .hero-badge-num {
+    font-size: 2rem;
+  }
+  .hero-badge-label {
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #b4bbcf;
+    margin-top: 0.3rem;
+    font-family: Montserrat;
+  }
+}
+
+/* =============================================
+   CTA BANNER
+============================================= */
+#cta {
+  padding: 8rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.cta-bg {
+  position: absolute; inset:0;
+  background: radial-gradient(ellipse 100% 100% at 50% 50%, rgba(240,165,0,0.09) 0%, transparent 60%);
+}
+.cta-grid {
+  position: absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(240,165,0,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,165,0,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 80%);
+}
+.cta-inner {
+  position: relative; z-index:2;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+.cta-heading {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+.cta-heading .cta-grad {
+  background: linear-gradient(135deg, var(--gold), var(--gold2), #ff9a3c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cta-sub { font-size: 1rem; color: var(--muted); line-height: 1.8; max-width:520px; margin: 0 auto 3rem; }
+.cta-btns { display: flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+.cta-btn {
+  display: inline-flex; align-items:center; gap:0.6rem;
+  padding: 1rem 2.2rem;
+  border-radius: 16px;
+  font-weight: 700; font-size: 0.88rem;
+  text-decoration: none; cursor: none;
+  transition: all 0.3s;
+}
+.cta-btn-main { background:var(--gold); color:#000; box-shadow: 0 0 50px rgba(240,165,0,0.3); }
+.cta-btn-main:hover { background:var(--gold2); transform:translateY(-4px); box-shadow: 0 16px 50px rgba(240,165,0,0.45); }
+.cta-btn-zalo { background:rgba(0,104,255,0.12); border:1px solid rgba(0,104,255,0.3); color:#60a5fa; }
+.cta-btn-zalo:hover { background:rgba(0,104,255,0.22); transform:translateY(-4px); }
+.cta-btn-fb { background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.25); color:#a5b4fc; }
+.cta-btn-fb:hover { background:rgba(99,102,241,0.2); transform:translateY(-4px); }
+
+/* =============================================
+   CONTACT
+============================================= */
+#contact {
+  padding: 8rem 3rem;
+  position: relative;
+}
+.contact-grid {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+.contact-info { }
+.contact-info p { font-size: 0.9rem; color: var(--muted); line-height: 1.9; margin-bottom: 3rem; }
+.contact-links { display: flex; flex-direction: column; gap: 1rem; }
+.contact-link {
+  display: flex; align-items:center; gap:1rem;
+  padding: 1.1rem 1.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--text);
+  cursor: none;
+  transition: all 0.3s;
+}
+.contact-link:hover { border-color: rgba(240,165,0,0.25); background:rgba(240,165,0,0.04); transform: translateX(6px); }
+.cl-icon {
+  width: 46px; height: 46px;
+  border-radius: 12px;
+  display: flex; align-items:center; justify-content:center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.cl-icon-gold { background:rgba(240,165,0,0.1); border:1px solid rgba(240,165,0,0.2); }
+.cl-icon-sky  { background:rgba(56,189,248,0.1); border:1px solid rgba(56,189,248,0.2); }
+.cl-icon-ind  { background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.2); }
+.cl-label { font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+.cl-value { font-weight:600; font-size:0.95rem; }
+
+/* Form */
+.contact-form-wrap {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 2.5rem;
+}
+.form-row { margin-bottom: 1.25rem; }
+.form-row label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+.form-row input,
+.form-row textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 0.85rem 1.1rem;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  outline: none;
+  resize: vertical;
+  transition: all 0.25s;
+}
+.form-row input:focus,
+.form-row textarea:focus {
+  border-color: rgba(240,165,0,0.4);
+  background: rgba(240,165,0,0.03);
+  box-shadow: 0 0 0 4px rgba(240,165,0,0.06);
+}
+.form-row input::placeholder,
+.form-row textarea::placeholder { color: #374151; }
+.form-submit {
+  width: 100%;
+  padding: 1rem;
+  background: var(--gold);
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-weight: 700; font-size: 0.88rem;
+  cursor: none;
+  transition: all 0.3s;
+  display: flex; align-items:center; justify-content:center; gap: 0.5rem;
+}
+.form-submit:hover { background: var(--gold2); transform:translateY(-2px); box-shadow: 0 10px 30px rgba(240,165,0,0.3); }
+#form-ok { display:none; text-align:center; color:#34d399; font-size:0.85rem; margin-top:1rem; }
+
+/* =============================================
+   FOOTER
+============================================= */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: rgba(0,0,0,0.3);
+}
+.foot-logo { font-family:var(--font-display); font-size:1.4rem; }
+.foot-logo span { color: var(--gold); }
+.foot-copy { font-size:0.75rem; color:var(--muted); }
+.foot-links { display:flex; gap:1.5rem; }
+.foot-links a { font-size:0.75rem; color:var(--muted); text-decoration:none; cursor:none; transition:color 0.2s; }
+.foot-links a:hover { color:var(--gold); }
+
+/* =============================================
+   SCROLL REVEAL
+============================================= */
+.sr {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+.sr.vis { opacity:1; transform:translateY(0); }
+.sr-l { opacity:0; transform:translateX(-40px); transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1); }
+.sr-l.vis { opacity:1; transform:translateX(0); }
+.sr-r { opacity:0; transform:translateX(40px); transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1); }
+.sr-r.vis { opacity:1; transform:translateX(0); }
+
+/* overlay */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+}
+
+/* box */
+.popup-box {
+  background: #ffffff;
+  max-width: 380px;
+  width: 90%;
+  margin: 20vh auto;
+  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* title */
+.popup-box h3 {
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+/* contact item */
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 12px 0;
+  font-size: 1rem;
+}
+
+.contact-item a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 500;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+/* close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #999;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+/* animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 📱 responsive mobile */
+@media (max-width: 480px) {
+  .popup-box {
+    margin: 25vh 1.5vh;
+    padding: 1.5rem 1rem;
+  }
+
+  .popup-box h3 {
+    font-size: 1.1rem;
+  }
+
+  .contact-item {
+    font-size: 0.95rem;
+  }
+}
+
+/* =============================================
+   MOBILE
+============================================= */
+@media (max-width: 900px) {
+  nav { padding: 1.2rem 1.5rem; }
+  nav.solid { padding: 0.9rem 1.5rem; }
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .hero-content { padding: 0 1.5rem; }
+  .hero-badge { 
+        display: block;
+        width: 30%;
+        position: absolute;
+        right: 5px;
+        top: 201px;
+        margin: 98px 10px;
+      }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  #about { padding: 6rem 1.5rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 4rem; }
+  #services { padding: 6rem 1.5rem; }
+  .services-grid { grid-template-columns: 1fr; }
+  .section-header { flex-direction: column; }
+  .section-header-right { text-align: left; max-width: 100%; }
+  #products { padding: 6rem 0 6rem 1.5rem; }
+  #cta { padding: 6rem 1.5rem; }
+  #contact { padding: 6rem 1.5rem; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+  .about-photo-frame {
+    max-width: 380px;
+    width: 100%;
+    aspect-ratio: 4/5;
+    margin: 0 auto;
+  }
+  .photo-placeholder-text {
+    font-size: 0.72rem;
+    bottom: 0.7rem;
+  }
+  .float-card-1 { left: 0; }
+  .float-card-2 { right: 0; }
+}
+
+/* =============================================
+   ABOUT US SECTION
+============================================= */
+#about-us {
+  position: relative;
+  background: linear-gradient(135deg, rgba(240,165,0,0.05) 0%, transparent 50%, rgba(100,200,255,0.03) 100%);
+  border-top: 1px solid rgba(240,165,0,0.1);
+  border-bottom: 1px solid rgba(240,165,0,0.1);
+}
+
+#about-us::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 100% 60% at 0% 50%, rgba(240,165,0,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 60% at 100% 50%, rgba(100,200,255,0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.about-us-content {
+  position: relative;
+  z-index: 2;
+}
+
+.about-us-content p {
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 2px solid transparent;
+}
+
+.about-us-content p:first-of-type {
+  border-left-color: var(--gold);
+  padding-top: 1rem;
+}
+
+.about-us-content p:nth-of-type(2) {
+  border-left-color: rgba(240,165,0,0.6);
+}
+
+.about-us-content p:nth-of-type(3) {
+  border-left-color: rgba(240,165,0,0.4);
+}
+
+.about-us-content p:nth-of-type(4) {
+  border-left-color: rgba(240,165,0,0.6);
+}
+
+.about-us-content p:last-of-type {
+  border-left-color: rgba(100,200,255,0.5);
+  padding-bottom: 1rem;
+}
+
+.about-us-content p:hover {
+  transform: translateX(8px);
+  border-left-color: var(--gold);
+}
+
+.about-us-content strong {
+  color: var(--gold);
+  font-weight: 700;
+  text-shadow: 0 0 12px rgba(240,165,0,0.3);
+}
+
+@media (max-width: 600px) {
+  #about-us {
+    padding: 4rem 1.5rem;
+  }
+  
+  .about-us-content p {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-title { font-size: clamp(4rem, 18vw, 6rem); }
+  .section-heading { font-size: 2.5rem; }
+  .hero-badge {
+    top: 15%;
+    padding: 0.6rem 0.8rem;
+  }
+  .hero-badge-num {
+    font-size: 1.5rem;
+  }
+  .hero-badge-label {
+    font-size: 0.6rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Cursor ────────────────────────── -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ── NAV ──────────────────────────── -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo"><span>Tâm</span>Kem</a>
+  <div class="nav-links">
+    <a href="#about">Về Tôi</a>
+    <a href="#services">Dịch Vụ</a>
+    <a href="#products">Sản Phẩm</a>
+    <a href="#contact">Liên Hệ</a>
+    <a href="#" class="nav-cta" onclick="openPopup()">Gọi Ngay</a>
+  </div>
+  <button class="hamburger" id="ham" aria-label="menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── Mobile menu overlay ──────────── -->
+<div id="mob-menu" style="display:none;position:fixed;inset:0;z-index:900;background:rgba(5,6,10,0.97);backdrop-filter:blur(20px);padding:6rem 2rem 2rem;flex-direction:column;gap:2rem;">
+  <a href="#about" class="mob-link" style="font-family:var(--font-display);font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Về Tôi</a>
+  <a href="#services" class="mob-link" style="font-family:var(--font-display);font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Dịch Vụ</a>
+  <a href="#products" class="mob-link" style="font-family:var(--font-display);font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Sản Phẩm</a>
+  <a href="#contact" class="mob-link" style="font-family:var(--font-display);font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Liên Hệ</a>
+  <div style="margin-top:auto;display:flex;gap:1rem;flex-wrap:wrap;">
+    <a href="tel:0912002132" style="padding:.8rem 1.8rem;background:var(--gold);color:#000;border-radius:999px;font-weight:700;text-decoration:none;font-size:.9rem;">📞 0912 002 132</a>
+    <a href="https://zalo.me/0397127215" target="_blank" style="padding:.8rem 1.8rem;background:rgba(0,104,255,0.15);border:1px solid rgba(0,104,255,0.3);color:#60a5fa;border-radius:999px;font-weight:700;text-decoration:none;font-size:.9rem;">Zalo</a>
+  </div>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+  <div class="hero-gradient"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-blob"></div>
+  <div class="hero-blob2"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="orb orb4"></div>
+  <div class="orb orb5"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-dot"></div>
+      <span class="eyebrow-text">Thương Hiệu Cá Nhân · Kinh Doanh · Công Nghệ · Nông Sản Quê Hương · 2026</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="title-line"><span class="title-line-inner">TẠP HÓA</span></span>
+      <span class="title-line"><span class="title-line-inner title-grad">TÂM KEM</span></span>
+    </h1>
+    <p class="hero-sub">
+      Hành trình thật – Giá trị thật – Niềm tin thật
+    </p>
+    <div class="hero-actions">
+      <a href="tel:0912002132" class="btn-primary" onclick="openPopup()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.1 3.38 2 2 0 012.07 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.61-.61a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Gọi Ngay
+      </a>
+      <a href="https://zalo.me/0397127215" target="_blank" class="btn-zalo">
+        <span class="zalo-z">Z</span>
+        Zalo Chat
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="btn-outline">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        Đặt Hàng Facebook
+      </a>
+    </div>
+  </div>
+
+  <!-- Floating badge -->
+  <div class="hero-badge">
+    <div class="hero-badge-num">🤝</div>
+    <div class="hero-badge-label">Mỗi sản phẩm bán ra <br/>là một lần đặt cược uy tín</div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero-scroll">
+    <span class="scroll-txt">Scroll To Explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ MARQUEE ═══════════════ -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee">
+    <div class="marquee-item"><span>✦</span> Thiết Kế Website Quảng Bá Thương Hiệu</div>
+    <div class="marquee-item"><span>✦</span> Landing Page</div>
+    <div class="marquee-item"><span>✦</span> Sữa Chua Ba Vì</div>
+    <div class="marquee-item"><span>✦</span> Chè Bát Tiên</div>
+    <div class="marquee-item"><span>✦</span> Sâm Hoàng Kỳ Nam</div>
+    <div class="marquee-item"><span>✦</span> Chuối Hột Rừng</div>
+    <div class="marquee-item"><span>✦</span> Măng Khô Đặc Sản</div>
+    <div class="marquee-item"><span>✦</span> Măng Ớt</div>
+    <div class="marquee-item"><span>✦</span> Mật Ong Rừng</div>
+    <div class="marquee-item"><span>✦</span> Rượu Ngâm Thảo Dược</div>
+    
+    
+    <div class="marquee-item"><span>✦</span> Thiết Kế Website Quảng Bá Thương Hiệu</div>
+    <div class="marquee-item"><span>✦</span> Landing Page</div>
+    <div class="marquee-item"><span>✦</span> Sữa Chua Ba Vì</div>
+    <div class="marquee-item"><span>✦</span> Chè Bát Tiên</div>
+    <div class="marquee-item"><span>✦</span> Sâm Hoàng Kỳ Nam</div>
+    <div class="marquee-item"><span>✦</span> Chuối Hột Rừng</div>
+    <div class="marquee-item"><span>✦</span> Măng Khô Đặc Sản</div>
+    <div class="marquee-item"><span>✦</span> Măng Ớt</div>
+    <div class="marquee-item"><span>✦</span> Mật Ong Rừng</div>
+    <div class="marquee-item"><span>✦</span> Rượu Ngâm Thảo Dược</div>
+  </div>
+</div>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<section id="about">
+  <div class="about-bg-text">HÀNH TRÌNH</div>
+  <div class="about-grid">
+    <!-- Visual -->
+    <div class="about-visual sr-l">
+      <div class="about-photo-frame">
+        <div class="photo-placeholder-icon">
+          <img src="./img/avt.jpg" alt="Ảnh đại diện" style="width: 100%; height: 100%;"/>
+        </div>
+        <div class="photo-placeholder-text">ẢNH ĐẠI DIỆN</div>
+      </div>
+      <div class="float-card float-card-1">
+        <div class="float-card-label">Kinh nghiệm</div>
+        <div class="float-card-value">3<span style="font-size:1.2rem;color:var(--muted)">+</span></div>
+        <div class="float-card-sub">năm IT & NTQ Solution</div>
+      </div>
+      <div class="float-card float-card-2">
+        <div class="float-card-label">Khởi nghiệp</div>
+        <div class="float-card-value" style="color:#34d399">2026</div>
+        <div class="float-card-sub">Xây dựng thương hiệu</div>
+      </div>
+    </div>
+
+    <!-- Text -->
+    <div class="about-text-side sr-r">
+      <div class="section-eyebrow">Về Tôi</div>
+      <h2 class="section-heading">HÀNH<br/>TRÌNH<br/>CỦA TÔI</h2>
+      <div class="about-story">
+        <p>Tôi bắt đầu từ giảng đường <strong>Đại học Công Nghiệp</strong> — không phải để kiếm một tấm bằng, mà để tìm ra mình thực sự muốn gì. Từ năm thứ 3, tôi đã không ngồi chờ tốt nghiệp; tôi bước ra làm việc, va chạm thực tế và học từng ngày.</p>
+        <p>Ba năm tại <strong>NTQ Solution</strong> dạy tôi nhiều hơn bất kỳ giáo trình nào — tư duy làm việc chuyên nghiệp, kỷ luật của môi trường Nhật Bản, sự nghiêm cẩn trong từng chi tiết nhỏ nhất. Đó là nền tảng mà tôi mang theo mãi.</p>
+        <p>Cuối 2025, tôi chọn trở về quê hương. Thử sức ở <strong>VNPT Tân Sơn</strong> — nhưng sau 3 tháng, tôi nhận ra con đường này không phù hợp với mình.</p>
+        <div class="about-highlight">
+          "2026 là năm tôi chọn tự xây dựng thương hiệu — kinh doanh thực chiến, phát triển bản thân, và tạo dựng thương hiệu cá nhân từ đôi tay mình."
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="timeline" style="margin-top:2.5rem;">
+        <div class="tl-item" data-d="0">
+          <div class="tl-dot tl-dot-gold"></div>
+          <div class="tl-year">2020</div>
+          <div class="tl-title">ĐẠI HỌC CÔNG NGHIỆP</div>
+          <div class="tl-desc">Bắt đầu hành trình học tập, xây dựng tư duy kỹ thuật.</div>
+        </div>
+        <div class="tl-item" data-d="120">
+          <div class="tl-dot tl-dot-sky"></div>
+          <div class="tl-year">2022</div>
+          <div class="tl-title">NTQ SOLUTION</div>
+          <div class="tl-desc">Làm việc từ năm 3 — học tính kỉ luật, tư duy phân tích vấn đề.</div>
+        </div>
+        <div class="tl-item" data-d="240">
+          <div class="tl-dot tl-dot-em"></div>
+          <div class="tl-year">2024</div>
+          <div class="tl-title">TỐT NGHIỆP</div>
+          <div class="tl-desc">Ra trường với hành trang thực chiến, không chỉ bằng cấp.</div>
+        </div>
+        <div class="tl-item" data-d="360">
+          <div class="tl-dot tl-dot-rose"></div>
+          <div class="tl-year">Cuối 2025</div>
+          <div class="tl-title">VNPT TÂN SƠN</div>
+          <div class="tl-desc">3 tháng để nhận ra: đây chưa phải đích đến của mình.</div>
+        </div>
+        <div class="tl-item" data-d="480">
+          <div class="tl-dot tl-dot-gold" style="width:14px;height:14px;left:-.7rem;box-shadow:0 0 16px rgba(240,165,0,0.8)"></div>
+          <div class="tl-year" style="color:var(--gold)">2026 · Hiện Tại</div>
+          <div class="tl-title" style="color:var(--gold)">TỰ XÂY THƯƠNG HIỆU</div>
+          <div class="tl-desc">Kinh doanh, thiết kế, phát triển bản thân — tất cả từ hôm nay.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TAN SON ═══════════════ -->
+<section id="about-us" style="padding: 6rem 3rem; position: relative; overflow: hidden;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto;">
+    <div class="section-header" style="margin-bottom: 3rem;">
+      <div class="section-eyebrow">Về Chúng Tôi</div>
+      <h2 class="section-heading">SẢN PHẨM<br/>TÂN SƠN</h2>
+    </div>
+    <div class="about-us-content" style="max-width: 900px;">
+      <p style="font-size: 1rem; line-height: 1.8; margin-bottom: 2rem;"><strong>🌿 Về những sản vật từ núi rừng Tân Sơn</strong></p>
+      <p style="font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem;">Nằm gần khu vực Vườn quốc gia Xuân Sơn và đồi chè Đồi chè Long Cốc, Tân Sơn không chỉ là vùng đất của thiên nhiên nguyên sơ, mà còn là nơi lưu giữ nhiều sản vật quý từ núi rừng.</p>
+      <p style="font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem;">Chúng tôi lựa chọn mang những sản phẩm từ chính vùng đất này đến với người dùng, không phải vì sự đặc biệt hiếm có, mà vì sự thật và nguyên bản của chúng.</p>
+      <p style="font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem;">Từ mật ong rừng được khai thác tự nhiên theo mùa, măng khô phơi thủ công, đến những loại rễ cây quý hiếm được người dân bản địa sử dụng từ lâu đời — mỗi sản phẩm đều mang theo câu chuyện của núi rừng.</p>
+      <p style="font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem;">Những đặc sản như gà nhiều cựa – một giống gà gắn liền với truyền thuyết vùng cao, chuối hột rừng, hay chè Bát Tiên từ những đồi chè xanh mướt Long Cốc… không chỉ là thực phẩm, mà còn là một phần của văn hóa và đời sống nơi đây.</p>
+      <p style="font-size: 0.95rem; line-height: 1.8;">Chúng tôi không gọi đây là "hàng đặc sản" theo cách quảng bá thông thường. Đó đơn giản là những gì người dân địa phương vẫn dùng mỗi ngày — và chúng tôi tin rằng, những điều mộc mạc đó xứng đáng được mang đến nhiều người hơn.</p>
+    </div>
+  </div>
+</section>
+
+<section id="about-us" style="padding: 6rem 3rem; position: relative; overflow: hidden;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto;">
+    <div class="section-header" style="margin-bottom: 3rem;">
+      <div class="section-eyebrow">Về Chúng Tôi</div>
+      <h2 class="section-heading">SẢN PHẨM<br/>SỮA BA VÌ</h2>
+    </div>
+    <div class="about-us-content" style="max-width: 900px;">
+      <p style="font-size: 1rem; line-height: 1.8; margin-bottom: 2rem;"><strong>🥛 Sữa Ba Vì hiệu Chị Vàng – Tinh túy từ núi Tản</strong></p>
+      
+      <p style="font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem;">
+        Được nuôi dưỡng từ vùng đất núi Tản – nơi nổi tiếng với khí hậu mát lành, đồng cỏ xanh mướt và nguồn nước tự nhiên tinh khiết, sữa Ba Vì hiệu Chị Vàng mang trong mình trọn vẹn những gì nguyên bản nhất của thiên nhiên.
+      </p>
+      
+      <p style="font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem;">
+        Những đàn bò được chăm sóc trong môi trường gần gũi với tự nhiên, ăn cỏ sạch và sinh trưởng khỏe mạnh, tạo nên nguồn sữa tươi chất lượng cao. Từng giọt sữa giữ được vị thơm béo dịu nhẹ, thanh mát và dễ uống – không chỉ là thức uống giải khát mà còn là nguồn dinh dưỡng thiết yếu mỗi ngày.
+      </p>
+      
+      <p style="font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem;">
+        Điều làm nên giá trị của sản phẩm không nằm ở sự cầu kỳ, mà ở chính sự chân thật. Quy trình sản xuất được thực hiện cẩn thận nhằm giữ lại tối đa hương vị tự nhiên, mang đến trải nghiệm gần gũi như đang thưởng thức sữa ngay tại vùng núi Ba Vì.
+      </p>
+      
+      <p style="font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem;">
+        Trong những ngày nắng nóng, một chai sữa mát lạnh không chỉ giúp giải nhiệt, làm dịu cơ thể mà còn tiếp thêm năng lượng để bạn tiếp tục công việc và cuộc sống hàng ngày.
+      </p>
+      
+      <p style="font-size: 0.95rem; line-height: 1.8;">
+        Tại Tạp Hóa Tâm Kem, chúng tôi không chỉ mang đến một sản phẩm để bán. Chúng tôi mang đến một giá trị – đó là sự nguyên bản, sự tin cậy và mong muốn kết nối người tiêu dùng với những sản phẩm sạch, rõ nguồn gốc và thực sự tốt cho sức khỏe.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SERVICES ═══════════════ -->
+<section id="services">
+  <div class="services-bg"></div>
+  <div class="section-header">
+    <div class="section-header-left sr">
+      <div class="section-eyebrow">Dịch Vụ</div>
+      <h2 class="section-heading">TÔI CÓ THỂ<br/>GIÚP GÌ?</h2>
+    </div>
+    <div class="section-header-right sr">
+      Kết hợp giữa kỹ thuật, kiến thức và câu chuyện — mỗi sản phẩm tôi tạo ra đều mang dấu ấn riêng, được xây dựng với sự tỉ mỉ và đam mê.
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card sr" style="transition-delay:0s">
+      <div class="svc-card-glow svc-card-glow-gold"></div>
+      <div class="svc-num">01</div>
+      <div class="svc-icon svc-icon-gold">🖥️</div>
+      <h3 class="svc-title">THIẾT KẾ WEBSITE</h3>
+      <p class="svc-desc">Website cá nhân, website quảng bá sản phẩm, blog doanh nghiệp — đẹp, nhanh, chuẩn SEO và tối ưu trên mọi thiết bị.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">HTML/CSS/JS</span>
+        <span class="svc-tag">TailwindCSS</span>
+        <span class="svc-tag">React</span>
+      </div>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc-card sr" style="transition-delay:0.15s">
+      <div class="svc-card-glow svc-card-glow-sky"></div>
+      <div class="svc-num">02</div>
+      <div class="svc-icon svc-icon-sky">🛒</div>
+      <h3 class="svc-title">LANDING PAGE</h3>
+      <p class="svc-desc">Trang đích chuyển đổi cao — thiết kế thuyết phục, CTA rõ ràng, hướng khách hàng đến hành động.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">Conversion</span>
+        <span class="svc-tag">UI/UX</span>
+        <span class="svc-tag">Figma</span>
+      </div>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc-card sr" style="transition-delay:0.3s">
+      <div class="svc-card-glow svc-card-glow-em"></div>
+      <div class="svc-num">03</div>
+      <div class="svc-icon svc-icon-em">🎨</div>
+      <h3 class="svc-title">BRANDING SẢN PHẨM</h3>
+      <p class="svc-desc">Xây dựng bộ nhận diện thương hiệu — logo, màu sắc, typography — để sản phẩm nổi bật hơn đối thủ.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">Logo</span>
+        <span class="svc-tag">Brand Identity</span>
+        <span class="svc-tag">Visual</span>
+      </div>
+      <div class="svc-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRODUCTS ═══════════════ -->
+<section id="products">
+  <div class="products-intro">
+    <div class="section-eyebrow sr">Sản Phẩm</div>
+    <h2 class="section-heading sr">CỬA HÀNG<br/>TÂM KEM</h2>
+    <p class="sr" style="color:var(--muted);font-size:.95rem;line-height:1.8;max-width:460px;margin-top:.5rem;">Sản phẩm sạch — nguồn gốc rõ ràng — chất lượng đặt lên hàng đầu. Kéo ngang để xem thêm.</p>
+  </div>
+
+  <!-- Cat 1: Sữa Chua Ba Vì -->
+  <div class="cat-section sr">
+    <div class="cat-header" style="padding-right:3rem;">
+      <span class="cat-badge cat-badge-gold">🥛 Sữa Chua Ba Vì</span>
+      <h3 class="cat-title">SẢN PHẨM TỪ SỮA CHUA BA VÌ</h3>
+    </div>
+    <div class="h-scroll-track" id="track1">
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon">
+            <img src="./img/sua_chua_nep_cam.jpg" alt=""/>
+          </div>
+          <span class="prod-badge prod-badge-gold">Nếp cẩm</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA CHUA NẾP CẨM</div>
+          <p class="prod-desc">Sữa chua nếp cẩm dẻo bùi, ngọt dịu, giàu dinh dưỡng tự nhiên.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon"><img src="./img/sua_chua_nha_dam.jpg" alt=""/></div>
+          <span class="prod-badge prod-badge-gold">Nha đam</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA CHUA NHA ĐAM</div>
+          <p class="prod-desc">Sữa chua nha đam giòn mát, thanh nhẹ, hỗ trợ tiêu hóa, giải nhiệt ngày nóng.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon"><img src="./img/sua_chua_de_nep_cam.jpg" alt=""/></div>
+          <span class="prod-badge prod-badge-gold">Nếp cẩm dê</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA CHUA NẾP CẨM DÊ</div>
+          <p class="prod-desc">Sữa chua dê nếp cẩm, vị thơm ngon từ sữa dê kết hợp với nếp cẩm, giàu dinh dưỡng, tốt cho sức khỏe.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon"><img src="./img/sua_chua_pho_mai.jpg" alt=""/></div>
+          <span class="prod-badge prod-badge-gold">Phô mai</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA CHUA PHÔ MAI</div>
+          <p class="prod-desc">Sữa chua phô mai béo ngậy, mịn sánh, vị đậm, rất hợp cho người thích ngậy.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon"><img src="./img/sua_chua_dua_non.jpg" alt=""/></div>
+          <span class="prod-badge prod-badge-gold">Dừa non</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA CHUA DỪA NON</div>
+          <p class="prod-desc">Sữa chua dừa non béo thơm, thanh mát, vị dịu, dễ ăn, không ngấy.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon"><img src="./img/sua_chua_de.jpg" alt=""/></div>
+          <span class="prod-badge prod-badge-gold">Nguyên chất dê</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA CHUA NGUYÊN CHẤT DÊ</div>
+          <p class="prod-desc">Sữa chua dê nguyên chất, vị thanh nhẹ, dễ tiêu, giàu dinh dưỡng, tốt cho sức khỏe.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon"><img src="./img/sua_chua_tran_chau.jpg" alt=""/></div>
+          <span class="prod-badge prod-badge-gold">Trân châu</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA CHUA TRÂN CHÂU</div>
+          <p class="prod-desc">Sữa chua trân châu dai mềm, ngọt nhẹ, tăng cảm giác thú vị khi thưởng thức.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon"><img src="./img/sua_chua_bon_mua.jpg" alt=""/></div>
+          <span class="prod-badge prod-badge-gold">Bốn mùa</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA CHUA BỐN MÙA</div>
+          <p class="prod-desc">Sữa chua mix nhiều vị, đa dạng hương vị, ăn không chán, phù hợp mọi người.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon"><img src="./img/sua_hoa_qua.jpg" alt=""/></div>
+          <span class="prod-badge prod-badge-gold">6 vị</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA CHUA UỐNG HOA QUẢ</div>
+          <p class="prod-desc">Sữa chua uống kết hợp trái cây tươi, thanh mát, dễ uống, bổ sung vitamin mỗi ngày.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon"><img src="./img/sua_chua_vi_truyen_thong.jpg" alt=""/></div>
+          <span class="prod-badge prod-badge-gold">6 vị</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA CHUA VỊ TRUYỀN THỐNG</div>
+          <p class="prod-desc">Sữa chua truyền thống mịn, chua nhẹ, dễ ăn, bổ sung lợi khuẩn mỗi ngày.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon"><img src="./img/sua_tuoi.jpg" alt=""/></div>
+          <span class="prod-badge prod-badge-gold">Có đường/Không đường</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA TƯƠI DÊ</div>
+          <p class="prod-desc">Sữa tươi dê nguyên chất, thơm nhẹ, dễ tiêu, giàu dinh dưỡng, tốt cho sức khỏe.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon"><img src="./img/sc_say_tt.jpg" alt=""/></div>
+          <span class="prod-badge prod-badge-gold">Truyền thống</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA CHUA SẤY THĂNG HOA VỊ TRUYỀN THỐNG</div>
+          <p class="prod-desc">Sữa chua sấy thăng hoa, giòn xốp, giữ trọn vị chua nhẹ, tiện lợi, dễ mang theo.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-gold">
+          <div class="prod-img-icon"><img src="./img/sc_say_nep_cam.jpg" alt=""/></div>
+          <span class="prod-badge prod-badge-gold">Nếp cẩm</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SỮA CHUA SẤY THĂNG HOA VỊ NẾP CẨM</div>
+          <p class="prod-desc">Sữa chua sấy nếp cẩm, giòn tan, vị chua ngọt hòa quyện, thơm bùi, ăn lạ miệng.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+        </div>
+      </div>
+      <!-- Duplicate for scroll feel -->
+      <div class="prod-card" style="opacity:.4;pointer-events:none;flex:0 0 80px;border:none;background:transparent;"></div>
+    </div>
+  </div>
+
+  <!-- Cat 2: Thảo dược -->
+  <div class="cat-section sr">
+    <div class="cat-header" style="padding-right:3rem;">
+      <span class="cat-badge cat-badge-green">🌿 Thảo Dược</span>
+      <h3 class="cat-title">THẢO DƯỢC & THIÊN NHIÊN</h3>
+    </div>
+    <div class="h-scroll-track" id="track2">
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-green">
+          <div class="prod-img-icon">
+            <img src="./img/sam_hkn.jpg" alt=""/>
+          </div>
+          <span class="prod-badge prod-badge-green">Thảo dược</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">SÂM HOÀNG KỲ NAM</div>
+          <p class="prod-desc">Sâm hoàng kỳ nam giúp tăng sinh lực, bổ khí huyết, cải thiện thể trạng, hỗ trợ sức khỏe lâu dài.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-green">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-green">
+          <div class="prod-img-icon">
+            <img src="./img/chuoi_hot_rung.png" alt=""/>
+          </div>
+          <span class="prod-badge prod-badge-green">Rừng núi</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">CHUỐI HỘT RỪNG</div>
+          <p class="prod-desc">Chuối hột rừng tự nhiên, chuyên dùng ngâm rượu, vị đặc trưng, được nhiều người tin dùng.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-green">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card" style="opacity:.4;pointer-events:none;flex:0 0 80px;border:none;background:transparent;"></div>
+    </div>
+  </div>
+
+  <!-- Cat 3: Đặc sản -->
+  <div class="cat-section sr">
+    <div class="cat-header" style="padding-right:3rem;">
+      <span class="cat-badge cat-badge-orange">🍜 Đặc Sản</span>
+      <h3 class="cat-title">ĐẶC SẢN VÙNG MIỀN</h3>
+    </div>
+    <div class="h-scroll-track" id="track3">
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-orange">
+          <div class="prod-img-icon"><img src="./img/mang_kho.jpg" /></div>
+          <span class="prod-badge prod-badge-orange">Đặc sản</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">MĂNG KHÔ</div>
+          <p class="prod-desc">Măng khô phơi tự nhiên, giòn dai, thơm đặc trưng, phù hợp nấu canh, xào, kho.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-orange">
+          <div class="prod-img-icon">
+            <img src="./img/mang_ot.jpg" />
+          </div>
+          <span class="prod-badge prod-badge-orange">Đặc sản</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">MĂNG ỚT</div>
+          <p class="prod-desc">Măng ớt giòn cay, chua nhẹ, đậm vị, ăn kèm cực bắt cơm, dễ gây nghiện.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-orange">
+          <div class="prod-img-icon"><img src="./img/che_bat_tien.jpg" /></div>
+          <span class="prod-badge prod-badge-orange">Đặc sản</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">CHÈ BÁT TIÊN</div>
+          <p class="prod-desc">Chè Bát Tiên thơm dịu, vị thanh, hậu ngọt, giúp thư giãn, phù hợp uống mỗi ngày.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-orange">
+          <div class="prod-img-icon"><img src="./img/mat_ong.jpg" /></div>
+          <span class="prod-badge prod-badge-orange">Đặc sản</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">MẬT ONG RỪNG</div>
+          <p class="prod-desc">Mật ong rừng tự nhiên, vị ngọt đậm, giàu dinh dưỡng, hỗ trợ tăng đề kháng.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card" style="opacity:.4;pointer-events:none;flex:0 0 80px;border:none;background:transparent;"></div>
+    </div>
+  </div>
+
+  <!-- Cat 4: Ruou Ngam -->
+  <div class="cat-section sr">
+    <div class="cat-header" style="padding-right:3rem;">
+      <span class="cat-badge cat-badge-orange">🍜 Đặc Sản</span>
+      <h3 class="cat-title">RƯỢU NGÂM THẢO DƯỢC</h3>
+    </div>
+    <div class="h-scroll-track" id="track3">
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-orange">
+          <div class="prod-img-icon"><img src="./img/ruou_2.jpg" /></div>
+          <span class="prod-badge prod-badge-orange">Đặc sản</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">RƯỢU NGÂM CHUỐI HỘT</div>
+          <p class="prod-desc">Rượu ngâm chuối hột, vị ngọt dịu, giúp thanh nhiệt, giải độc cơ thể.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-orange">
+          <div class="prod-img-icon">
+            <img src="./img/ruou_3.jpg" />
+          </div>
+          <span class="prod-badge prod-badge-orange">Đặc sản</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">RƯỢU NGÂM ỔI HỒNG</div>
+          <p class="prod-desc">Măng ớt giòn cay, chua nhẹ, đậm vị, ăn kèm cực bắt cơm, dễ gây nghiện.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-orange">
+          <div class="prod-img-icon"><img src="./img/ruou_sam_cau.jpg" /></div>
+          <span class="prod-badge prod-badge-orange">Đặc sản</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">RƯỢU NGÂM SÂM CAU</div>
+          <p class="prod-desc">Rượu ngâm sâm cau, vị đậm đà, giúp tăng cường sức khỏe, hỗ trợ tiêu hóa.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-orange">
+          <div class="prod-img-icon"><img src="./img/ruou_7_loai.jpg" /></div>
+          <span class="prod-badge prod-badge-orange">Đặc sản</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">RƯỢU NGÂM SÂM HOÀNG KỲ NAM</div>
+          <p class="prod-desc">Rượu ngâm sâm hoàng kỳ nam, vị đậm đà, giúp tăng cường sức khỏe, hỗ trợ tiêu hóa.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-orange">
+          <div class="prod-img-icon"><img src="./img/ruou_tam_that.jpg" /></div>
+          <span class="prod-badge prod-badge-orange">Đặc sản</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">RƯỢU NGÂM TAM THẤT</div>
+          <p class="prod-desc">Rượu ngâm vải thiếu Bắc Giang, vị ngọt dịu, giúp thanh nhiệt, giải độc cơ thể.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img prod-img-grad-orange">
+          <div class="prod-img-icon"><img src="./img/ruou_7_loai.jpg" /></div>
+          <span class="prod-badge prod-badge-orange">Đặc sản</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">RƯỢU NGÂM 7 VỊ</div>
+          <p class="prod-desc">Rượu ngâm tam thất, vị đậm đà, giúp tăng cường sức khỏe, hỗ trợ tiêu hóa.</p>
+          <a href="https://www.facebook.com" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+        </div>
+      </div>
+      <div class="prod-card" style="opacity:.4;pointer-events:none;flex:0 0 80px;border:none;background:transparent;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<section id="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-grid"></div>
+  <div class="cta-inner">
+    <div class="sr" style="margin-bottom:1.5rem;">
+      <span style="font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.4rem 1rem;border:1px solid rgba(240,165,0,.2);border-radius:999px;background:rgba(240,165,0,.05);">Sẵn Sàng Chưa?</span>
+    </div>
+    <h2 class="cta-heading sr">
+      LIÊN HỆ NGAY<br/>
+      <span class="cta-grad">PHỤC VỤ TẬN TÂM</span>
+    </h2>
+    <p class="cta-sub sr">Dù bạn cần đặt hàng nông sản, tư vấn thiết kế, hay chỉ muốn hỏi thêm — hãy liên hệ. Tôi luôn sẵn sàng phục vụ.</p>
+    <div class="cta-btns sr">
+      <a href="tel:0912002132" class="cta-btn cta-btn-main">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.1 3.38 2 2 0 012.07 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.61-.61a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Gọi: 0912 002 132
+      </a>
+      <a href="https://zalo.me/0397127215" target="_blank" class="cta-btn cta-btn-zalo">
+        <span class="zalo-z">Z</span>
+        Zalo: 0397 127 215
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="cta-btn cta-btn-fb">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        Facebook Shop
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section id="contact">
+  <div style="max-width:1300px;margin:0 auto 4rem;">
+    <div class="section-eyebrow sr">Liên Hệ</div>
+    <h2 class="section-heading sr">KẾT NỐI<br/>VỚI TÔI</h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info sr-l">
+      <p>Mọi câu hỏi, yêu cầu đặt hàng hoặc hợp tác — đừng ngại liên hệ. Tôi sẽ phản hồi nhanh nhất có thể.</p>
+      <div class="contact-links">
+        <a href="tel:0912002132" class="contact-link">
+          <div class="cl-icon cl-icon-gold">📞</div>
+          <div>
+            <div class="cl-label">Điện thoại</div>
+            <div class="cl-value">0912 002 132</div>
+          </div>
+        </a>
+        <a href="https://zalo.me/0397127215" target="_blank" class="contact-link">
+          <div class="cl-icon cl-icon-sky" style="font-size:1rem;font-weight:900;color:#60a5fa;">Z</div>
+          <div>
+            <div class="cl-label">Zalo</div>
+            <div class="cl-value">0397 127 215</div>
+          </div>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="contact-link">
+          <div class="cl-icon cl-icon-ind">
+            <svg width="18" height="18" fill="#a5b4fc" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </div>
+          <div>
+            <div class="cl-label">Facebook</div>
+            <div class="cl-value">Tạp Hóa Tâm Kem</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="sr-r">
+      <div class="contact-form-wrap">
+        <form id="cform">
+          <div class="form-row">
+            <label>Họ và tên</label>
+            <input type="text" placeholder="Nguyễn Văn A" required/>
+          </div>
+          <div class="form-row">
+            <label>Số điện thoại</label>
+            <input type="tel" placeholder="0912 000 000" required/>
+          </div>
+          <div class="form-row">
+            <label>Nội dung</label>
+            <textarea rows="5" placeholder="Tôi muốn đặt hàng / tư vấn..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Gửi Tin Nhắn
+          </button>
+          <div id="form-ok">✅ Gửi thành công! Tôi sẽ liên hệ sớm.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="foot-logo"><span>Tâm</span>Kem</div>
+  <p class="foot-copy">© 2026 Tạp Hóa Tâm Kem · Thiết kế & phát triển bởi chính chủ</p>
+  <div class="foot-links">
+    <a href="tel:0912002132">0912 002 132</a>
+    <a href="https://zalo.me/0397127215" target="_blank">Zalo</a>
+    <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank">Facebook</a>
+  </div>
+</footer>
+
+<div id="contact-popup" class="popup-overlay">
+  <div class="popup-box">
+    
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    
+    <h3>Liên hệ với chúng tôi</h3>
+
+    <div class="contact-item">
+      <span>📞</span>
+      <a href="tel:0912002132">0912 002 132</a>
+    </div>
+
+    <div class="contact-item">
+      <span>💬</span>
+      <a href="https://zalo.me/0912002132" target="_blank">Chat Zalo</a>
+    </div>
+
+    <div class="contact-item">
+      <span>🌐</span>
+      <a href="https://facebook.com/yourpage" target="_blank">Facebook</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ JS ═══════════════════ -->
+<script>
+// ── Custom cursor ─────────────────────────
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx+'px';
+  cur.style.top  = my+'px';
+});
+
+function lerpCursor() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx+'px';
+  ring.style.top  = ry+'px';
+  requestAnimationFrame(lerpCursor);
+}
+lerpCursor();
+
+document.querySelectorAll('a,button,.prod-card,.svc-card').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-grow'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-grow'));
+});
+
+// ── Nav scroll ───────────────────────────
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('solid', window.scrollY > 50);
+}, {passive:true});
+
+// ── Mobile menu ──────────────────────────
+const ham = document.getElementById('ham');
+const mobMenu = document.getElementById('mob-menu');
+let menuOpen = false;
+ham.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  mobMenu.style.display = menuOpen ? 'flex' : 'none';
+  ham.children[0].style.transform = menuOpen ? 'rotate(45deg) translate(5px,5px)' : '';
+  ham.children[1].style.opacity = menuOpen ? '0' : '1';
+  ham.children[2].style.transform = menuOpen ? 'rotate(-45deg) translate(5px,-5px)' : '';
+});
+document.querySelectorAll('.mob-link').forEach(l => {
+  l.addEventListener('click', () => {
+    menuOpen = false;
+    mobMenu.style.display = 'none';
+    ham.children[0].style.transform = '';
+    ham.children[1].style.opacity = '1';
+    ham.children[2].style.transform = '';
+  });
+});
+
+// ── Scroll reveal ─────────────────────────
+const srObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('vis'); srObs.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.sr,.sr-l,.sr-r').forEach(el => srObs.observe(el));
+
+// ── Timeline stagger ──────────────────────
+const tlObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const d = parseInt(e.target.dataset.d || 0);
+      setTimeout(() => e.target.classList.add('vis'), d);
+      tlObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.tl-item').forEach(el => tlObs.observe(el));
+
+// ── Horizontal drag scroll ────────────────
+document.querySelectorAll('.h-scroll-track').forEach(track => {
+  let isDown=false, startX, scrollL;
+  track.addEventListener('mousedown', e => {
+    isDown=true; track.classList.add('active');
+    startX = e.pageX - track.offsetLeft;
+    scrollL = track.scrollLeft;
+  });
+  track.addEventListener('mouseleave', () => { isDown=false; });
+  track.addEventListener('mouseup', () => { isDown=false; });
+  track.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    track.scrollLeft = scrollL - (x - startX) * 1.5;
+  });
+});
+
+// ── Parallax hero elements ────────────────
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY;
+  const blob = document.querySelector('.hero-blob');
+  const blob2 = document.querySelector('.hero-blob2');
+  const grid = document.querySelector('.hero-grid');
+  if (blob) blob.style.transform = `translateY(${sy * 0.25}px)`;
+  if (blob2) blob2.style.transform = `translateY(${sy * 0.15}px)`;
+  if (grid) grid.style.transform = `translateY(${sy * 0.1}px)`;
+}, {passive:true});
+
+// ── Contact form ──────────────────────────
+const cform = document.getElementById('cform');
+const formOk = document.getElementById('form-ok');
+cform.addEventListener('submit', e => {
+  e.preventDefault();
+  const btn = cform.querySelector('.form-submit');
+  btn.textContent = 'Đang gửi...';
+  btn.style.opacity = '0.7';
+  btn.disabled = true;
+  setTimeout(() => {
+    cform.reset();
+    btn.innerHTML = '✓ Đã gửi!';
+    btn.style.background = '#34d399';
+    btn.style.opacity = '1';
+    formOk.style.display = 'block';
+    setTimeout(() => {
+      btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Gửi Tin Nhắn';
+      btn.style.background = '';
+      btn.disabled = false;
+      formOk.style.display = 'none';
+    }, 3500);
+  }, 1200);
+});
+
+// ── Tilt on service cards ─────────────────
+document.querySelectorAll('.svc-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width - 0.5) * 12;
+    const y = ((e.clientY - r.top) / r.height - 0.5) * -12;
+    card.style.transform = `translateY(-8px) perspective(600px) rotateX(${y}deg) rotateY(${x}deg)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+// ── Product card tilt ─────────────────────
+document.querySelectorAll('.prod-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width - 0.5) * 8;
+    const y = ((e.clientY - r.top) / r.height - 0.5) * -8;
+    card.style.transform = `translateY(-6px) perspective(500px) rotateX(${y}deg) rotateY(${x}deg)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+  function openPopup() {
+    document.getElementById("contact-popup").style.display = "block";
+  }
+
+  function closePopup() {
+    document.getElementById("contact-popup").style.display = "none";
+  }
+
+  // click ra ngoài để đóng
+  window.onclick = function(event) {
+    let popup = document.getElementById("contact-popup");
+    if (event.target === popup) {
+      popup.style.display = "none";
+    }
+  }
+</script>
+</body>
+</html>
