@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"/>
 <!-- Fallback fonts if above unavailable -->
+ <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 /* =============================================
@@ -321,7 +322,7 @@ nav.solid {
 }
 
 .hero-actions {
-  display: flex;
+  /* display: flex; */
   gap: 0.5rem;
   margin-top: 3rem;
   flex-wrap: wrap;
@@ -528,6 +529,12 @@ nav.solid {
   pointer-events: none;
 }
 
+@media (max-width: 768px) {
+    #hero {
+        padding: 120px 5% 60px;
+    }
+}
+
 
 @media (max-width: 900px) {
   .test {
@@ -650,6 +657,8 @@ nav.solid {
   border-bottom: 1px solid var(--border);
   background: rgba(240,165,0,0.03);
   padding: 1rem 0;
+  position: relative;
+    top: 7rem;
 }
 .marquee-track {
   display: flex;
@@ -1518,7 +1527,7 @@ footer {
         margin: 98px 10px;
       }
   .hero-actions { display: flex }
-  #about { padding: 6rem 1.5rem; }
+  #about { padding: 6rem 1.5rem; margin-top: 3rem; }
   .about-grid { grid-template-columns: 1fr; gap: 4rem; }
   #services { padding: 6rem 1.5rem; }
   .services-grid { grid-template-columns: 1fr; }
@@ -1540,7 +1549,7 @@ footer {
     bottom: 0.7rem;
   }
   .float-card-1 { left: 0; }
-  .float-card-2 { right: 0; width: 120px;}
+  .float-card-2 { right: 0; width: 100px;}
 }
 
 /* =============================================
@@ -1636,6 +1645,20 @@ footer {
     font-size: 0.6rem;
   }
 }
+
+.hero-jar {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    z-index: 2;
+    animation: floatJar 5s ease-in-out infinite;
+  }
+  @keyframes floatJar {
+    0%,100% { transform: translateY(-50%) translateY(0); }
+    50%      { transform: translateY(-50%) translateY(-18px); }
+  }
 </style>
 </head>
 <body>
@@ -1675,59 +1698,87 @@ footer {
 </div>
 
 <!-- ═══════════════ HERO ═══════════════ -->
-<section id="hero">
-  <div class="hero-gradient"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-blob"></div>
-  <div class="hero-blob2"></div>
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
-  <div class="orb orb4"></div>
-  <div class="orb orb5"></div>
+<section class="bg-white dark:bg-gray-900" style="position: relative; top: 100px; background-image: url('./img/bg_che.png'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+        <h1 
+          class="mb-4 text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-wide leading-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
+          style="font-family: 'Montserrat', sans-serif;"
+        >
+          <span class="text-[#f0a500]">TAN SON</span> 
+          <span class="text-white">NATURAL</span>
+        </h1>
+        <p class="mb-8 text-lg font-semibold text-white lg:text-xl sm:px-16 xl:px-48" 
+          style="text-shadow: 0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.6);">
+          Tinh túy nông sản sạch từ núi rừng
+        </p>
+        <div class="brand-quote">
+          <span class="fire">Mỗi Sản Phẩm Bán Ra Là Một Lần Đặt Cược Uy Tín</span>
+        </div>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap');
 
-  <div class="hero-content">
+      .brand-quote span {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+        white-space: nowrap;
+        font-size: clamp(8px, 2vw, 26px);
+        letter-spacing: 1px;
 
-    <div class="test">
-      <div class="test1">
-        <img src="./img/logo-th.png"/>
-      </div>
-      <div class="test2">Mỗi sản phẩm bán ra <br/>là một lần đặt cược uy tín</div>
+        color: #fff;
+
+        padding: 16px 32px;
+        border-radius: 16px;
+        border: 2px solid #f0a500;
+
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(8px);
+
+        /* chữ sáng nổi */
+        text-shadow: 
+          0 0 5px #fff,
+          0 0 10px #f0a500,
+          0 0 20px #f0a500,
+          0 0 40px rgba(240,165,0,0.8);
+
+        /* glow box */
+        box-shadow: 
+          0 0 10px rgba(240,165,0,0.6),
+          0 0 30px rgba(240,165,0,0.4);
+
+        animation: glowPulse 2.5s infinite ease-in-out;
+      }
+
+      @keyframes glowPulse {
+        0%,100% {
+          text-shadow: 
+            0 0 5px #fff,
+            0 0 10px #f0a500,
+            0 0 20px #f0a500;
+        }
+        50% {
+          text-shadow: 
+            0 0 10px #fff,
+            0 0 20px #f0a500,
+            0 0 40px #f0a500,
+            0 0 60px #f0a500;
+        }
+      }
+        </style>
+        <div class="hero-actions">
+          <a href="tel:0912002132" class="btn-primary" onclick="openPopup()">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.1 3.38 2 2 0 012.07 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.61-.61a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Gọi Ngay
+          </a>
+          <a href="https://zalo.me/0397127215" target="_blank" class="btn-zalo">
+            <span class="zalo-z">Z</span>
+            Zalo Chat
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="btn-outline">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            Đặt Hàng Facebook
+          </a>
+        </div>
     </div>
-    <div class="hero-eyebrow">
-      <div class="eyebrow-dot"></div>
-      <span class="eyebrow-text">Nông sản tự nhiên từ núi rừng Tân Sơn · 2026</span>
-    </div>
-    <h1 class="hero-title">
-      <span class="title-line"><span class="title-line-inner">TAN SON</span></span>
-      <span class="title-line"><span class="title-line-inner title-grad">NATURAL</span></span>
-    </h1>
-    <p class="hero-sub">
-      Hành trình thật – Giá trị thật – Niềm tin thật
-    </p>
-    <div class="hero-actions">
-      <a href="tel:0912002132" class="btn-primary" onclick="openPopup()">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.1 3.38 2 2 0 012.07 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.61-.61a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        Gọi Ngay
-      </a>
-      <a href="https://zalo.me/0397127215" target="_blank" class="btn-zalo">
-        <span class="zalo-z">Z</span>
-        Zalo Chat
-      </a>
-      <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="btn-outline">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-        Đặt Hàng Facebook
-      </a>
-    </div>
-  </div>
-
-  
-
-  <!-- Scroll indicator -->
-  <div class="hero-scroll">
-    <span class="scroll-txt">Scroll To Explore</span>
-    <div class="scroll-line"></div>
-  </div>
 </section>
 
 <!-- ═══════════════ MARQUEE ═══════════════ -->
@@ -1758,6 +1809,7 @@ footer {
   </div>
 </div>
 
+
 <!-- ═══════════════ ABOUT ═══════════════ -->
 <section id="about">
   <div class="about-bg-text">HÀNH TRÌNH</div>
@@ -1773,7 +1825,7 @@ footer {
       <div class="float-card float-card-1">
         <div class="float-card-label">Kinh nghiệm</div>
         <div class="float-card-value">3<span style="font-size:1.2rem;color:var(--muted)">+</span></div>
-        <div class="float-card-sub">năm IT & NTQ Solution</div>
+        <div class="float-card-sub">năm trong lĩnh vực IT</div>
       </div>
       <div class="float-card float-card-2">
         <div class="float-card-label">Khởi nghiệp</div>
