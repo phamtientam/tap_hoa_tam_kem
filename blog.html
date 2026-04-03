@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blog - Tan Son Natural</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"/>
+<!-- Fallback fonts if above unavailable -->
+ <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* =============================================
+   ROOT & RESET
+============================================= */
+:root {
+  --gold: #f0a500;
+  --gold2: #ffcc55;
+  --amber: #e67e00;
+  --bg: #05060a;
+  --bg2: #090c14;
+  --surface: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.07);
+  --text: #f0ece4;
+  --muted: #5a5f6e;
+  --font-display: 'Bebas Neue', 'Clash Display', sans-serif;
+  --font-body: 'DM Sans', 'Cabinet Grotesk', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* =============================================
+   CUSTOM CURSOR
+============================================= */
+#cursor {
+  position: fixed;
+  width: 12px; height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: difference;
+}
+#cursor-ring {
+  position: fixed;
+  width: 40px; height: 40px;
+  border: 1.5px solid rgba(240,165,0,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.12s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
+}
+body:hover #cursor-ring { opacity: 1; }
+.cursor-grow #cursor { width: 28px; height: 28px; }
+.cursor-grow #cursor-ring { width: 60px; height: 60px; border-color: var(--gold); }
+
+/* =============================================
+   NOISE TEXTURE OVERLAY
+============================================= */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9990;
+}
+
+/* =============================================
+   NAV
+============================================= */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.5s;
+}
+nav.solid {
+  padding: 1rem 3rem;
+  background: rgba(5,6,10,0.8);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+.nav-logo img {
+  width: 55px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 2.5rem; align-items: center; }
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+  cursor: none;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  padding: 0.6rem 1.5rem;
+  background: var(--gold);
+  color: #000 !important;
+  border-radius: 999px;
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  transition: all 0.25s !important;
+}
+.nav-cta:hover { background: var(--gold2) !important; transform: scale(1.03); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: all 0.3s; }
+
+/* =============================================
+   BLOG STYLES
+============================================= */
+.blog-header {
+  padding: 120px 3rem 60px;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(240,165,0,0.1) 0%, transparent 100%);
+}
+.blog-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6rem);
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.blog-subtitle {
+  font-size: 1.2rem;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+.blog-posts {
+  padding: 60px 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.post-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+.post-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* Desktop image size */
+@media (min-width: 769px) {
+  .post-image {
+    height: 600px;
+  }
+}
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(240,165,0,0.1);
+}
+.post-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+.post-meta {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.post-excerpt {
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.read-more {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.read-more:hover {
+  color: var(--gold2);
+}
+
+/* =============================================
+   FOOTER
+============================================= */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: rgba(0,0,0,0.3);
+}
+.foot-logo { font-family:emoji; font-size:1.4rem; }
+.foot-logo span { color: var(--gold); }
+.foot-copy { font-size:0.75rem; color:var(--muted); }
+.foot-links { display:flex; gap:1.5rem; }
+.foot-links a { font-size:0.75rem; color:var(--muted); text-decoration:none; cursor:none; transition:color 0.2s; }
+.foot-links a:hover { color:var(--gold); }
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  nav.solid { padding: 0.8rem 1.5rem; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .blog-header { padding: 100px 1.5rem 40px; }
+  .blog-posts { padding: 40px 1.5rem; }
+  .post-card { padding: 1.5rem; }
+  footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────── -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="./img/lg-jpg.png" alt="Logo Tân Sơn Natural" />
+    <span>Tan Son</span>Natural
+  </a>
+  <div class="nav-links">
+    <a href="index.html#about">Về Tôi</a>
+    <a href="index.html#services">Dịch Vụ</a>
+    <a href="index.html#products">Sản Phẩm</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#contact">Liên Hệ</a>
+    <a href="#" class="nav-cta" onclick="openPopup()">Gọi Ngay</a>
+  </div>
+  <button class="hamburger" id="ham" aria-label="menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── Mobile menu overlay ──────────── -->
+<div id="mob-menu" style="display:none;position:fixed;inset:0;z-index:900;background:rgba(5,6,10,0.97);backdrop-filter:blur(20px);padding:6rem 2rem 2rem;flex-direction:column;gap:2rem;">
+  <a href="index.html#about" class="mob-link" style="font-family:emoji;font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Về Tôi</a>
+  <a href="index.html#services" class="mob-link" style="font-family:emoji;font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Dịch Vụ</a>
+  <a href="index.html#products" class="mob-link" style="font-family:emoji;font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Sản Phẩm</a>
+  <a href="blog.html" class="mob-link" style="font-family:emoji;font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Blog</a>
+  <a href="index.html#contact" class="mob-link" style="font-family:emoji;font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Liên Hệ</a>
+  <div style="margin-top:auto;display:flex;gap:1rem;flex-wrap:wrap;">
+    <a href="tel:0912002132" style="padding:.8rem 1.8rem;background:var(--gold);color:#000;border-radius:999px;font-weight:700;text-decoration:none;font-size:.9rem;">📞 0912 002 132</a>
+    <a href="https://zalo.me/0397127215" target="_blank" style="padding:.8rem 1.8rem;background:rgba(0,104,255,0.15);border:1px solid rgba(0,104,255,0.3);color:#60a5fa;border-radius:999px;font-weight:700;text-decoration:none;font-size:.9rem;">Zalo</a>
+  </div>
+</div>
+
+<!-- ── BLOG HEADER ──────────────────── -->
+<section class="blog-header">
+  <h1 class="blog-title">Blog Sản Phẩm</h1>
+  <p class="blog-subtitle">Khám phá các bài viết về sản phẩm tự nhiên của chúng tôi, mẹo sử dụng và lợi ích sức khỏe.</p>
+</section>
+
+<!-- ── BLOG POSTS ───────────────────── -->
+<section class="blog-posts">
+  <div class="post-card">
+    <img src="./img/chuoi_hot_rung.png" alt="Chuối Hột Rừng Phơi Khô" class="post-image">
+    <h2 class="post-title" contenteditable="true">Chuối Hột Rừng Phơi Khô – “Vị đắng nhẹ, giá trị vàng cho sức khỏe</h2>
+    <div class="post-meta">Ngày 1 tháng 4, 2026 • Bởi Tân Sơn Natural</div>
+    <p class="post-excerpt" contenteditable="true">Chuối hột rừng phơi khô – thảo dược tự nhiên hỗ trợ tiêu hóa, thanh lọc cơ thể và tăng cường sức khỏe bền vững.</p>
+    <a href="blog-detail.html?post=chuoi-hot-rung" class="read-more">Đọc thêm →</a>
+  </div>
+  <div class="post-card">
+    <img src="./img/mang_kho.jpg" alt="Măng Khô Rừng" class="post-image">
+    <h2 class="post-title" contenteditable="true">Măng Khô Rừng – “Tinh hoa núi rừng trong từng sợi măng”</h2>
+    <div class="post-meta">Ngày 15 tháng 3, 2026 • Bởi Tân Sơn Natural</div>
+    <p class="post-excerpt" contenteditable="true">Măng khô rừng tự nhiên, thơm ngon, sạch và giàu dinh dưỡng – lựa chọn hoàn hảo cho bữa ăn đậm vị truyền thống.</p>
+    <a href="blog-detail.html?post=mang-kho-rung" class="read-more">Đọc thêm →</a>
+  </div>
+  <div class="post-card">
+    <img src="./img/mat_ong.jpg" alt="Mật Ong Rừng" class="post-image">
+    <h2 class="post-title" contenteditable="true">Mật Ong Rừng – “Giọt vàng tinh túy từ thiên nhiên hoang dã”</h2>
+    <div class="post-meta">Ngày 1 tháng 3, 2026 • Bởi Tân Sơn Natural</div>
+    <p class="post-excerpt" contenteditable="true">Mật ong rừng nguyên chất, giàu dưỡng chất, tăng cường sức đề kháng và bồi bổ sức khỏe tự nhiên mỗi ngày.</p>
+    <a href="blog-detail.html?post=mat-ong-rung" class="read-more">Đọc thêm →</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────── -->
+<footer>
+  <div class="foot-logo"><span>Tan Son</span>Natural</div>
+  <p class="foot-copy">© 2026 Tan Son Natural · Thiết kế & phát triển bởi chính chủ</p>
+  <div class="foot-links">
+    <a href="tel:0912002132">0912 002 132</a>
+    <a href="https://zalo.me/0397127215" target="_blank">Zalo</a>
+    <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank">Facebook</a>
+  </div>
+</footer>
+
+<!-- Custom Cursor Elements -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ── SCRIPTS ──────────────────────── -->
+<script>
+// Custom cursor
+document.addEventListener('DOMContentLoaded', function() {
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursor-ring');
+  let mouseX = 0, mouseY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+    cursorRing.style.left = mouseX + 'px';
+    cursorRing.style.top = mouseY + 'px';
+  });
+
+  document.addEventListener('mouseenter', () => {
+    cursor.style.opacity = '1';
+    cursorRing.style.opacity = '1';
+  });
+
+  document.addEventListener('mouseleave', () => {
+    cursor.style.opacity = '0';
+    cursorRing.style.opacity = '0';
+  });
+
+  // Grow cursor on hover
+  const hoverElements = document.querySelectorAll('a, button, .post-card, .foot-links a');
+  hoverElements.forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-grow'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-grow'));
+  });
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('nav');
+    if (window.scrollY > 100) {
+      nav.classList.add('solid');
+    } else {
+      nav.classList.remove('solid');
+    }
+  });
+
+  // Mobile menu
+  const ham = document.getElementById('ham');
+  const mobMenu = document.getElementById('mob-menu');
+  ham.addEventListener('click', () => {
+    mobMenu.style.display = mobMenu.style.display === 'none' ? 'flex' : 'none';
+  });
+
+  // Close mobile menu on link click
+  const mobLinks = document.querySelectorAll('.mob-link');
+  mobLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobMenu.style.display = 'none';
+    });
+  });
+});
+
+// Popup function (assuming it's defined elsewhere or add placeholder)
+function openPopup() {
+  alert('Gọi ngay: 0912 002 132');
+}
+</script>
+
+</body>
+</html>

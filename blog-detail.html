@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blog Detail - Tan Son Natural</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root { --gold:#f0a500; --gold2:#ffcc55; --bg:#05060a; --text:#f0ece4; --muted:#5a5f6e; --surface:rgba(255,255,255,0.03); --border:rgba(255,255,255,0.07); --font-display:'Bebas Neue','Clash Display',sans-serif; --font-body:'DM Sans','Cabinet Grotesk',sans-serif; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:emoji;overflow-x:hidden;}
+main{max-width:900px;margin:140px auto 80px;padding:0 1.5rem;}
+h1{font-family:emoji;font-size:clamp(2.4rem,6vw,3.6rem);margin-bottom:0.75rem;color:#fff;}
+.post-meta{color:var(--muted);margin-bottom:1.5rem;}
+.post-img{width:100%;height:420px;object-fit:cover;border-radius:12px;margin-bottom:1.5rem;}
+.post-content{line-height:1.8;color:var(--text);}
+.back-link{margin-top:2rem;display:inline-block;color:var(--gold);text-decoration:none;font-weight:700;}
+.back-link:hover{color:var(--gold2);}
+
+footer {border-top:1px solid var(--border);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;background:rgba(0,0,0,0.3);}
+.foot-logo{font-family:var(--font-display);font-size:1.4rem;}
+.foot-logo span{color:var(--gold);}
+.foot-copy{font-size:0.75rem;color:var(--muted);}
+.foot-links{display:flex;gap:1.5rem;}
+.foot-links a{font-size:0.75rem;color:var(--muted);text-decoration:none;cursor:pointer;transition:color 0.2s;}
+.foot-links a:hover{color:var(--gold);}
+
+@media (max-width: 768px) {footer{padding:2rem 1.5rem;flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+<main>
+  <a href="blog.html" class="back-link">← Trở về Blog</a>
+  <h1 id="detail-title">Tiêu Đề Bài Viết</h1>
+  <div class="post-meta" id="detail-meta">Ngày ... • Bởi Tan Son Natural</div>
+  <img src="./img/chuoi_hot_rung.png" alt="Banner" class="post-img" id="detail-image"/>
+  <article class="post-content" id="detail-content">
+    <p style="margin-bottom:1.25rem;">Đây là trang chi tiết bài viết. Bạn có thể chỉnh sửa nội dung trực tiếp trong file nếu cá nhân hóa từng bài. Nội dung hiện tại chỉ là mẫu để bạn thay đổi theo từng bài.</p>
+    <p>Nội dung đầy đủ của bài viết sẽ xuất hiện ở đây: phần mở đầu, phân tích, lợi ích, hướng dẫn sử dụng và kết luận.</p>
+  </article>
+</main>
+
+<footer>
+  <div class="foot-logo"><span>Tan Son</span>Natural</div>
+  <p class="foot-copy">© 2026 Tan Son Natural · Thiết kế & phát triển bởi chính chủ</p>
+  <div class="foot-links">
+    <a href="tel:0912002132">0912 002 132</a>
+    <a href="https://zalo.me/0397127215" target="_blank">Zalo</a>
+    <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank">Facebook</a>
+  </div>
+</footer>
+
+<script>
+function getQueryParam(name) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name);
+}
+
+const postKey = getQueryParam('post');
+if (postKey) {
+  const data = {
+    'chuoi-hot-rung': {
+      title: 'Lợi Ích Của Trà Xanh Cho Sức Khỏe',
+      meta: 'Ngày 1 tháng 4, 2026 • Bởi Tân Sơn Natural',
+      image: './img/chuoi_hot_rung.png',
+      content: '<p>Giữa núi rừng hoang sơ của Tân Sơn, những buồng chuối hột rừng lớn lên một cách tự nhiên, không phân bón, không thuốc hóa học. Loại chuối này không ngọt như chuối thường, thậm chí có vị chát và đắng nhẹ – nhưng chính điều đó lại làm nên giá trị đặc biệt của nó. Chuối hột rừng từ lâu đã được người dân địa phương xem như một bài thuốc quý. Sau khi thu hoạch, chuối được thái lát và phơi khô dưới nắng tự nhiên nhiều ngày. Quá trình này giúp giữ lại gần như trọn vẹn dưỡng chất bên trong, đồng thời tạo nên hương vị rất riêng – hơi chát, hơi đắng, nhưng hậu vị lại ngọt dịu. Một trong những công dụng nổi bật của chuối hột rừng là hỗ trợ hệ tiêu hóa. Với những người thường xuyên bị đầy bụng, khó tiêu hoặc ăn uống không điều độ, chuối hột rừng có thể giúp cân bằng lại hoạt động đường ruột một cách tự nhiên. Ngoài ra, sản phẩm còn được nhiều người sử dụng để ngâm rượu – một bài thuốc dân gian quen thuộc giúp tăng cường sức khỏe và hỗ trợ xương khớp. Không chỉ dừng lại ở công dụng, chuối hột rừng còn mang trong mình giá trị của sự “nguyên bản”. Không qua xử lý công nghiệp, không chất bảo quản, không màu nhân tạo – tất cả đều là những gì thiên nhiên ban tặng. Ngày nay, giữa vô vàn thực phẩm chế biến sẵn, việc lựa chọn những sản phẩm tự nhiên như chuối hột rừng phơi khô chính là cách để bạn quay về với lối sống lành mạnh, bền vững hơn. Với Tan Son Natural, mỗi lát chuối không chỉ là sản phẩm – mà còn là câu chuyện của núi rừng, của con người và của hành trình gìn giữ giá trị tự nhiên.</p>'
+    },
+    'mang-kho-rung': {
+      title: 'Măng Khô Rừng – “Tinh hoa núi rừng trong từng sợi măng”',
+      meta: 'Ngày 15 tháng 3, 2026 • Bởi Tân Sơn Natural',
+      image: './img/mang_kho.jpg',
+      content: '<p>Măng khô rừng không đơn thuần là một nguyên liệu nấu ăn – đó là tinh hoa của núi rừng được kết tinh qua thời gian và công sức của con người.</p>'
+
+                + '<p>Ở Tân Sơn, măng được thu hái trực tiếp từ rừng tự nhiên, nơi những cây tre, nứa phát triển hoàn toàn hoang dã. Người dân chỉ chọn những búp măng tươi, non và chắc nhất, sau đó mang về sơ chế, luộc và phơi khô dưới ánh nắng tự nhiên.</p>'
+
+                + '<p>Quá trình làm măng khô đòi hỏi sự tỉ mỉ và kiên nhẫn. Từng công đoạn đều phải làm đúng cách để đảm bảo măng giữ được độ giòn, vị ngọt tự nhiên và không bị đắng. Chính vì vậy, măng khô rừng chuẩn thường có màu vàng nâu tự nhiên, sợi măng dai và khi nấu lên có mùi thơm rất đặc trưng.</p>'
+
+                + '<p>Măng khô không chỉ ngon mà còn rất tốt cho sức khỏe. Đây là thực phẩm giàu chất xơ, giúp hỗ trợ tiêu hóa, giảm cholesterol và tạo cảm giác no lâu – rất phù hợp với những người muốn ăn uống lành mạnh.</p>'
+
+                + '<p>Trong ẩm thực Việt, măng khô là nguyên liệu không thể thiếu trong nhiều món ăn truyền thống như canh măng, măng hầm xương, hay măng xào. Dù kết hợp với bất kỳ nguyên liệu nào, măng khô rừng vẫn giữ được “chất riêng” – đậm đà, mộc mạc nhưng vô cùng cuốn hút.</p>'
+
+                + '<p>Điều đặc biệt ở măng khô rừng của Tan Son Natural chính là sự cam kết về nguồn gốc và chất lượng. Không hóa chất, không tẩm màu, không chất bảo quản – chỉ có nắng, gió và sự chăm chút từ người làm.</p>'
+
+                + '<p>Mỗi sợi măng là một phần của núi rừng, mang đến cho bữa ăn của bạn không chỉ hương vị, mà còn cả sự an tâm.</p>'
+    },
+    'mat-ong-rung': {
+      title: 'Mật Ong Rừng – “Giọt vàng tinh túy từ thiên nhiên hoang dã”',
+      meta: 'Ngày 1 tháng 3, 2026 • Bởi Tân Sơn Natural',
+      image: './img/mat_ong.jpg',
+      content: '<p>Không phải ngẫu nhiên mà mật ong rừng được ví như “giọt vàng” của thiên nhiên. Để có được những giọt mật nguyên chất, người thợ phải đi sâu vào rừng, tìm kiếm những tổ ong tự nhiên và thu hoạch một cách cẩn thận, tôn trọng môi trường sống của ong.</p>'
+                + '<p>Mật ong rừng khác biệt hoàn toàn so với mật ong nuôi công nghiệp. Ong rừng hút mật từ nhiều loại hoa khác nhau trong tự nhiên, vì vậy mật có hương thơm đa tầng, vị ngọt thanh và màu sắc thay đổi theo mùa.</p>'
+
+                + '<p>Một trong những giá trị lớn nhất của mật ong rừng chính là hàm lượng dinh dưỡng cao. Mật ong chứa nhiều enzyme, vitamin và chất chống oxy hóa giúp tăng cường hệ miễn dịch, hỗ trợ làm đẹp da và cải thiện sức khỏe tổng thể.</p>'
+
+                + '<p>Sử dụng mật ong mỗi ngày là một thói quen đơn giản nhưng mang lại nhiều lợi ích. Bạn có thể pha với nước ấm để uống vào buổi sáng, kết hợp với chanh để thanh lọc cơ thể, hoặc dùng làm nguyên liệu trong nấu ăn và làm bánh.</p>'
+
+                + '<p>Tuy nhiên, điều làm nên sự khác biệt của mật ong rừng không chỉ nằm ở công dụng, mà còn ở giá trị tự nhiên và sự khan hiếm. Mỗi giọt mật là kết quả của hàng ngàn chuyến bay của ong và sự kiên trì của người thu hoạch.</p>'
+
+                + '<p>Tại Tan Son Natural, mật ong rừng được chọn lọc kỹ lưỡng, đảm bảo nguyên chất, không pha tạp. Chúng tôi tin rằng, khi bạn sử dụng một sản phẩm tự nhiên đúng nghĩa, bạn không chỉ chăm sóc sức khỏe mà còn góp phần bảo vệ những giá trị nguyên bản của thiên nhiên.</p>'
+
+                + '<p>Mật ong rừng không chỉ là thực phẩm – đó là tinh túy của đất trời, là món quà quý giá mà thiên nhiên dành tặng cho con người.</p>'
+    }
+  };
+
+  const post = data[postKey];
+  if (post) {
+    document.getElementById('detail-title').textContent = post.title;
+    document.getElementById('detail-meta').textContent = post.meta;
+    document.getElementById('detail-image').src = post.image;
+    document.getElementById('detail-content').innerHTML = post.content;
+  }
+}
+</script>
+</body>
+</html>
