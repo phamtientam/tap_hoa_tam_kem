@@ -488,76 +488,12 @@ nav.solid {
 }
 
 /* TEST badge */
-.test {
-  position: absolute;
-    top: 20rem;
-    right: 16%;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.8rem 1.1rem;
-    border-radius: 24px;
-    background: rgba(240, 165, 0, 0.2);
-    border: 1px solid rgba(240, 165, 0, 0.55);
-    backdrop-filter: blur(14px);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
-    animation: fadeSlideUp 0.8s 1.4s forwards;
-    min-width: 220px;
-    transform: translateX(-12px);
-    transition: opacity 0.3s ease;
-}
-.test2{
-  font-family: 'Poppins', 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #3c893f;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.test1 img,
-  .test .test-icon {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.95);
-  box-shadow: 0 0 16px rgba(240,165,0,0.85), inset 0 0 6px rgba(255,255,255,0.85);
-  object-fit: cover;
-  }
-.test.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
+
 
 @media (max-width: 768px) {
     #hero {
         padding: 120px 5% 60px;
     }
-}
-
-
-@media (max-width: 900px) {
-  .test {
-    top: 22%;
-    right: 1rem;
-    left: 1rem;
-    width: calc(100% - 2rem);
-    max-width: none;
-    min-width: 0;
-    justify-content: flex-start;
-    gap: 0.6rem;
-  }
-  .test2 {
-    white-space: normal;
-    font-size: 0.92rem;
-    overflow: visible;
-    text-overflow: unset;
-  }
-  .test1 img,
-  .test .test-icon {
-    width: 44px;
-    height: 44px;
-  }
 }
 
 @media (min-height: 640px) and (max-width: 900px) {
@@ -600,41 +536,6 @@ nav.solid {
 }
 
 @media (max-width: 480px) {
-  .test {
-    top: -22%;
-    margin: 0px auto;
-    text-align: center;
-    padding: 0.6rem 1.5rem;
-    gap: 0.5rem;
-    position: absolute;
-    height: 85px;
-  }
-  .test2 {
-    font-size: 0.85rem;
-  }
-  .test1 img,
-  .test .test-icon {
-    width: 38px;
-    height: 38px;
-  }
-  .test1 img,
-  .test .test-icon {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.95);
-  box-shadow: 0 0 16px rgba(240,165,0,0.85), inset 0 0 6px rgba(255,255,255,0.85);
-  object-fit: cover;
-  }
-  .test2 {
-  font-family: 'Poppins', 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #3c893f;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
   .hero-eyebrow {
     margin-top: 10rem;
   }
@@ -703,12 +604,17 @@ nav.solid {
   user-select: none;
 }
 .about-grid {
-  max-width: 1300px;
+  max-width: 1000px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8rem;
+  grid-template-columns: 1fr;
+  gap: 3rem;
   align-items: start;
+}
+
+.about-text-side {
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 /* Avatar / Photo side */
@@ -816,7 +722,7 @@ nav.solid {
 .about-story p {
   font-size: 0.95rem;
   line-height: 1.9;
-  color: rgba(240,236,228,0.55);
+  color: white;
   margin-bottom: 1.2rem;
 }
 .about-story strong { color: rgba(240,236,228,0.9); font-weight: 600; }
@@ -968,8 +874,8 @@ nav.solid {
 .svc-card:hover .svc-num { color: rgba(240,165,0,0.06); }
 
 .svc-title {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-family: cursive;
+  font-size: 1rem;
   letter-spacing: 0.03em;
   color: #fff;
   margin-bottom: 1rem;
@@ -1051,6 +957,44 @@ nav.solid {
 .h-scroll-track::-webkit-scrollbar { display: none; }
 .h-scroll-track:active { cursor: grabbing; }
 
+.product-slider {
+  position: relative;
+  overflow: visible;
+}
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: opacity 0.2s ease, transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+.slider-arrow:hover {
+  background: rgba(240,165,0,0.95);
+  border-color: rgba(240,165,0,0.8);
+  color: #000;
+  transform: translateY(-50%) scale(1.03);
+}
+.slider-prev { left: 0; }
+.slider-next { right: 0; }
+.slider-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .slider-arrow { display: none; }
+}
+
 .prod-card {
   flex: 0 0 280px;
   background: #23634b;
@@ -1096,8 +1040,8 @@ nav.solid {
 
 .prod-body { padding: 1.25rem; }
 .prod-name {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-family: cursive;
+  font-size: 1rem;
   letter-spacing: 0.03em;
   color: #ffffff;
   margin-bottom: 0.5rem;
@@ -1119,6 +1063,30 @@ nav.solid {
 .prod-btn-green:hover  { background:#34d399; color:#000; }
 .prod-btn-orange { background: rgba(249,115,22,0.08); border:1px solid rgba(249,115,22,0.2); color:#f97316; }
 .prod-btn-orange:hover { background:#f97316; color:#000; }
+.prod-btn-outline {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #fff;
+}
+.prod-btn-outline:hover {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+.prod-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+.prod-name-link {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+.prod-name-link:hover {
+  color: var(--gold);
+}
 
 /* =============================================
    PRODUCTS SECTION
@@ -1694,7 +1662,7 @@ footer {
   <a href="blog.html" class="mob-link" style="font-family:var(--font-display);font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Blog</a>
   <a href="#contact" class="mob-link" style="font-family:var(--font-display);font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Liên Hệ</a>
   <div style="margin-top:auto;display:flex;gap:1rem;flex-wrap:wrap;">
-    <a href="tel:0912002132" style="padding:.8rem 1.8rem;background:var(--gold);color:#000;border-radius:999px;font-weight:700;text-decoration:none;font-size:.9rem;">📞 0912 002 132</a>
+    <a href="tel:0397127215" style="padding:.8rem 1.8rem;background:var(--gold);color:#000;border-radius:999px;font-weight:700;text-decoration:none;font-size:.9rem;">📞 0397 127 215</a>
     <a href="https://zalo.me/0397127215" target="_blank" style="padding:.8rem 1.8rem;background:rgba(0,104,255,0.15);border:1px solid rgba(0,104,255,0.3);color:#60a5fa;border-radius:999px;font-weight:700;text-decoration:none;font-size:.9rem;">Zalo</a>
   </div>
 </div>
@@ -1767,7 +1735,7 @@ footer {
       }
         </style>
         <div class="hero-actions">
-          <a href="tel:0912002132" class="btn-primary" onclick="openPopup()">
+          <a href="tel:0397127215" class="btn-primary" onclick="openPopup()">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.1 3.38 2 2 0 012.07 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.61-.61a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
             Gọi Ngay
           </a>
@@ -1775,7 +1743,7 @@ footer {
             <span class="zalo-z">Z</span>
             Zalo Chat
           </a>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929/profile.php?id=61576907979929" target="_blank" class="btn-outline">
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="btn-outline">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
             Đặt Hàng Facebook
           </a>
@@ -1816,41 +1784,28 @@ footer {
 <section id="about">
   <div class="about-bg-text">HÀNH TRÌNH</div>
   <div class="about-grid">
-    <!-- Visual -->
-    <div class="about-visual sr-l">
-      <div class="about-photo-frame">
-        <div class="photo-placeholder-icon">
-          <img src="./img/avt.jpg" alt="Ảnh đại diện" style="width: 100%; height: 100%;"/>
-        </div>
-        <div class="photo-placeholder-text">ẢNH ĐẠI DIỆN</div>
-      </div>
-      <div class="float-card float-card-1">
-        <div class="float-card-label">Kinh nghiệm</div>
-        <div class="float-card-value">3<span style="font-size:1.2rem;color:var(--muted)">+</span></div>
-        <div class="float-card-sub">năm trong lĩnh vực IT</div>
-      </div>
-      <div class="float-card float-card-2">
-        <div class="float-card-label">Khởi nghiệp</div>
-        <div class="float-card-value" style="color:#34d399">2026</div>
-        <div class="float-card-sub">Xây dựng thương hiệu</div>
-      </div>
-    </div>
-
     <!-- Text -->
     <div class="about-text-side sr-r">
-      <div class="section-eyebrow">Về Tôi</div>
-      <h2 class="section-heading">HÀNH<br/>TRÌNH<br/>CỦA TÔI</h2>
+      <div class="section-eyebrow">Tại sao lại có thương hiệu này</div>
+      <h2 class="section-heading">CÂU CHUYỆN<br/>THƯƠNG HIỆU</h2>
       <div class="about-story">
-        <p>Tôi bắt đầu từ giảng đường <strong>Đại học Công Nghiệp</strong> — không phải để kiếm một tấm bằng, mà để tìm ra mình thực sự muốn gì. Từ năm thứ 3, tôi đã không ngồi chờ tốt nghiệp; tôi bước ra làm việc, va chạm thực tế và học từng ngày.</p>
-        <p>Ba năm tại <strong>NTQ Solution</strong> dạy tôi nhiều hơn bất kỳ giáo trình nào — tư duy làm việc chuyên nghiệp, kỷ luật của môi trường Nhật Bản, sự nghiêm cẩn trong từng chi tiết nhỏ nhất. Đó là nền tảng mà tôi mang theo mãi.</p>
-        <p>Cuối 2025, tôi chọn trở về quê hương. Thử sức ở <strong>VNPT Tân Sơn</strong> — nhưng sau 3 tháng, tôi nhận ra con đường này không phù hợp với mình.</p>
+        <p>Khoảng thời gian năm 2025, khi những thông tin về thực phẩm bẩn, hàng kém chất lượng liên tục xuất hiện trong năm, chúng tôi bắt đầu thực sự lo lắng. Không còn là câu chuyện đâu đó xa xôi, mà là những thứ có thể đang hiện diện trong chính bữa ăn mỗi ngày.</p>
+        <p>Từ rau, thịt cho đến những sản phẩm tưởng chừng đơn giản như sữa, đồ ăn vặt… mọi thứ đều khiến người ta phải đặt câu hỏi: liệu mình đang ăn gì, và nó đến từ đâu?</p>
+        <p>Chính từ nỗi lo rất thật đó, chúng tôi quyết định không đứng ngoài nữa, mà quay về với những gì nguyên bản nhất – núi rừng, ruộng vườn, và những sản vật tự nhiên vốn đã nuôi sống bao thế hệ một cách lành mạnh từ trước đến nay.</p>
+        <p>Ban đầu không phải là kinh doanh. Chỉ đơn giản là đi tìm lại những thứ sạch để gia đình mình dùng trước. Những chuyến đi tận đến nơi bà con trong rừng sinh sống (Xuân Sơn), để tìm mua và cùng bà con tự tay đi thu hoạch măng, đào dễ cây thuốc, hay tự tay chọn từng hạt lạc… tất cả đều xuất phát từ một suy nghĩ rất thật: ăn cái gì thì phải hiểu rõ cái đó.</p>
+        <p>Nhưng khi có nhiều người hỏi mua giúp, khi những sản phẩm mình mang về được tin tưởng và sử dụng lâu dài, chúng tôi nhận ra: có thể mình đang làm một việc ý nghĩa hơn – mang những thứ thật sự sạch, thật sự tự nhiên đến với nhiều người hơn.</p>
+        <p>Làm nông sản không dễ. Có những ngày cùng bà con đi rừng mà không thu được gì. Có những mùa thời tiết thất thường, sản lượng ít đi rõ rệt. Có những lúc phải lựa chọn giữa lợi nhuận và việc giữ đúng chất lượng ban đầu.</p>
+        <div class="about-highlight">Và chúng tôi chọn giữ chất lượng.</div>
+        <p>Bởi vì với chúng tôi, đây không chỉ là bán một sản phẩm. Đây là thứ mình cũng đang ăn mỗi ngày, là thứ mình đưa cho người thân, bạn bè. Nếu không thật sự yên tâm, chúng tôi sẽ không bao giờ mang đi bán.</p>
         <div class="about-highlight">
-          "2026 là năm tôi chọn tự xây dựng thương hiệu — kinh doanh thực chiến, phát triển bản thân, và tạo dựng thương hiệu cá nhân từ đôi tay mình."
+          Chúng tôi không dám nói sản phẩm của mình là tốt nhất. Nhưng có một điều có thể chắc chắn:
+          mọi thứ bạn nhận được đều là những gì chúng tôi đã tự tay chọn lọc, kiểm chứng và sẵn sàng dùng cho chính gia đình mình.
         </div>
+        <p>Chặng đường này có thể còn dài, còn nhiều khó khăn. Nhưng chỉ cần vẫn còn giữ được sự thật thà trong từng sản phẩm, chúng tôi tin rằng sẽ luôn có những người tin và đồng hành.</p>
       </div>
 
       <!-- Timeline -->
-      <div class="timeline" style="margin-top:2.5rem;">
+      <!-- <div class="timeline" style="margin-top:2.5rem;">
         <div class="tl-item" data-d="0">
           <div class="tl-dot tl-dot-gold"></div>
           <div class="tl-year">2020</div>
@@ -1881,7 +1836,7 @@ footer {
           <div class="tl-title" style="color:var(--gold)">TỰ XÂY THƯƠNG HIỆU</div>
           <div class="tl-desc">Kinh doanh, thiết kế, phát triển bản thân — tất cả từ hôm nay.</div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
@@ -1891,7 +1846,7 @@ footer {
   <div class="container" style="max-width: 1200px; margin: 0 auto;">
     <div class="section-header" style="margin-bottom: 3rem;">
       <div class="section-eyebrow">Về Sản Phẩm</div>
-      <h2 class="section-heading">SẢN PHẨM<br/>TÂN SƠN</h2>
+      <h2 class="section-heading">SẢN PHẨM<br/>TỰ NHIÊN</h2>
     </div>
     <div class="about-us-content" style="max-width: 900px;">
       <p style="font-size: 1rem; line-height: 1.8; margin-bottom: 2rem;"><strong>🌿 Về những sản vật từ núi rừng Tân Sơn</strong></p>
@@ -1941,50 +1896,56 @@ footer {
   <div class="services-bg"></div>
   <div class="section-header">
     <div class="section-header-left sr">
-      <div class="section-eyebrow">Dịch Vụ</div>
-      <h2 class="section-heading">TÔI CÓ THỂ<br/>GIÚP GÌ?</h2>
+      <div class="section-eyebrow">Giá Trị</div>
+      <h2 class="section-heading">CHÚNG TÔI <br/>MANG ĐẾN ĐIỀU GÌ?</h2>
     </div>
     <div class="section-header-right sr">
-      Kết hợp giữa kỹ thuật, kiến thức và câu chuyện — mỗi sản phẩm tôi tạo ra đều mang dấu ấn riêng, được xây dựng với sự tỉ mỉ và đam mê.
+      Kết hợp giữa nguồn nguyên liệu tự nhiên, sự chọn lọc kỹ lưỡng và tâm huyết của chúng tôi — mỗi sản phẩm đều mang giá trị riêng, mộc mạc nhưng đủ để tạo nên sự tin tưởng.
     </div>
   </div>
   <div class="services-grid">
     <div class="svc-card sr" style="transition-delay:0s">
       <div class="svc-card-glow svc-card-glow-gold"></div>
       <div class="svc-num">01</div>
-      <div class="svc-icon svc-icon-gold">🖥️</div>
-      <h3 class="svc-title">THIẾT KẾ WEBSITE</h3>
-      <p class="svc-desc">Xây dựng Website cá nhân, website quảng bá sản phẩm, blog doanh nghiệp — đẹp, nhanh, chuẩn SEO và tối ưu trên mọi thiết bị.</p>
+      <div class="svc-icon svc-icon-gold">🌿</div>
+      <h3 class="svc-title">NÔNG SẢN SẠCH TỪ TỰ NHIÊN</h3>
+      <p class="svc-desc">Thu hái trực tiếp từ núi rừng, không hóa chất, không can thiệp công nghiệp.
+        Giữ trọn hương vị nguyên bản và giá trị dinh dưỡng vốn có.
+      </p>
       <div class="svc-tags">
-        <span class="svc-tag">HTML/CSS/JS</span>
-        <span class="svc-tag">TailwindCSS</span>
-        <span class="svc-tag">React</span>
+        <span class="svc-tag">TỰ NHIÊN</span>
+        <span class="svc-tag">NGUYÊN CHẤT</span>
+        <span class="svc-tag">AN TOÀN</span>
       </div>
       <div class="svc-arrow">→</div>
     </div>
     <div class="svc-card sr" style="transition-delay:0.15s">
       <div class="svc-card-glow svc-card-glow-sky"></div>
       <div class="svc-num">02</div>
-      <div class="svc-icon svc-icon-sky">🛒</div>
-      <h3 class="svc-title">LANDING PAGE</h3>
-      <p class="svc-desc">Xây dựng trang đích chuyển đổi cao — thiết kế thuyết phục, CTA rõ ràng, hướng khách hàng đến hành động.</p>
+      <div class="svc-icon svc-icon-sky">🧺</div>
+      <h3 class="svc-title">CHỌN LỌC KỸ LƯỠNG NGUỒN GỐC</h3>
+      <p class="svc-desc">Mỗi sản phẩm đều được kiểm tra và chọn lọc cẩn thận trước khi đến tay khách hàng.
+        Chúng tôi chỉ bán những gì chính mình dám sử dụng mỗi ngày.
+      </p>
       <div class="svc-tags">
-        <span class="svc-tag">Conversion</span>
-        <span class="svc-tag">UI/UX</span>
-        <span class="svc-tag">Figma</span>
+        <span class="svc-tag">RÕ NGUỒN GỐC</span>
+        <span class="svc-tag">CHẤT LƯỢNG</span>
+        <span class="svc-tag">ĐÁNG TIN</span>
       </div>
       <div class="svc-arrow">→</div>
     </div>
     <div class="svc-card sr" style="transition-delay:0.3s">
       <div class="svc-card-glow svc-card-glow-em"></div>
       <div class="svc-num">03</div>
-      <div class="svc-icon svc-icon-em">🍄</div>
-      <h3 class="svc-title">NÔNG SẢN TỪ NÚI RỪNG TÂN SƠN</h3>
-      <p class="svc-desc">Chuyên cung cấp nông sản sạch từ thiên nhiên, an toàn, giàu dinh dưỡng, hỗ trợ cải thiện sức khỏe bền vững mỗi ngày..</p>
+      <div class="svc-icon svc-icon-em">💚</div>
+      <h3 class="svc-title">AN TÂM TRONG TỪNG SẢN PHẨM</h3>
+      <p class="svc-desc">Những gì đến tay bạn cũng là những gì chúng tôi tin tưởng sử dụng mỗi ngày.
+        Từng sản phẩm đều được chọn lọc kỹ lưỡng, sạch sẽ và tự nhiên để bạn an tâm khi sử dụng lâu dài.
+      </p>
       <div class="svc-tags">
-        <span class="svc-tag">Thảo dược</span>
-        <span class="svc-tag">Đặc sản</span>
-        <span class="svc-tag">Rượu ngâm</span>
+        <span class="svc-tag">AN TÂM</span>
+        <span class="svc-tag">TIN TƯỞNG</span>
+        <span class="svc-tag">BỀN VỮNG</span>
       </div>
       <div class="svc-arrow">→</div>
     </div>
@@ -1996,7 +1957,7 @@ footer {
   <div class="products-intro">
     <div class="section-eyebrow sr">Sản Phẩm</div>
     <h2 class="section-heading sr">STORE<br/>TAN SON NATURAL</h2>
-    <p class="sr" style="color:var(--muted);font-size:.95rem;line-height:1.8;max-width:460px;margin-top:.5rem;">Sản phẩm sạch — nguồn gốc rõ ràng — chất lượng đặt lên hàng đầu.</p>
+    <p class="sr" style="color:var(--muted);font-size:.95rem;line-height:1.8;max-width:500px;margin-top:.5rem;">Sản phẩm sạch — nguồn gốc rõ ràng — chất lượng đặt lên hàng đầu.</p>
   </div>
 
   <!-- Cat 1: Sữa Chua Ba Vì -->
@@ -2016,7 +1977,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA CHUA NẾP CẨM</div>
           <p class="prod-desc">Sữa chua nếp cẩm dẻo bùi, ngọt dịu, giàu dinh dưỡng tự nhiên.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2027,7 +1988,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA CHUA NHA ĐAM</div>
           <p class="prod-desc">Sữa chua nha đam giòn mát, thanh nhẹ, hỗ trợ tiêu hóa, giải nhiệt ngày nóng.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2038,7 +1999,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA CHUA NẾP CẨM DÊ</div>
           <p class="prod-desc">Sữa chua dê nếp cẩm, vị thơm ngon từ sữa dê kết hợp với nếp cẩm, giàu dinh dưỡng, tốt cho sức khỏe.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2049,7 +2010,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA CHUA PHÔ MAI</div>
           <p class="prod-desc">Sữa chua phô mai béo ngậy, mịn sánh, vị đậm, rất hợp cho người thích ngậy.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2060,7 +2021,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA CHUA DỪA NON</div>
           <p class="prod-desc">Sữa chua dừa non béo thơm, thanh mát, vị dịu, dễ ăn, không ngấy.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2071,7 +2032,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA CHUA NGUYÊN CHẤT DÊ</div>
           <p class="prod-desc">Sữa chua dê nguyên chất, vị thanh nhẹ, dễ tiêu, giàu dinh dưỡng, tốt cho sức khỏe.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2082,7 +2043,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA CHUA TRÂN CHÂU</div>
           <p class="prod-desc">Sữa chua trân châu dai mềm, ngọt nhẹ, tăng cảm giác thú vị khi thưởng thức.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2093,7 +2054,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA CHUA BỐN MÙA</div>
           <p class="prod-desc">Sữa chua mix nhiều vị, đa dạng hương vị, ăn không chán, phù hợp mọi người.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2104,7 +2065,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA CHUA UỐNG HOA QUẢ</div>
           <p class="prod-desc">Sữa chua uống kết hợp trái cây tươi, thanh mát, dễ uống, bổ sung vitamin mỗi ngày.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2115,7 +2076,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA CHUA VỊ TRUYỀN THỐNG</div>
           <p class="prod-desc">Sữa chua truyền thống mịn, chua nhẹ, dễ ăn, bổ sung lợi khuẩn mỗi ngày.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2126,7 +2087,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA TƯƠI DÊ</div>
           <p class="prod-desc">Sữa tươi dê nguyên chất, thơm nhẹ, dễ tiêu, giàu dinh dưỡng, tốt cho sức khỏe.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2137,7 +2098,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA CHUA SẤY THĂNG HOA VỊ TRUYỀN THỐNG</div>
           <p class="prod-desc">Sữa chua sấy thăng hoa, giòn xốp, giữ trọn vị chua nhẹ, tiện lợi, dễ mang theo.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2148,7 +2109,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SỮA CHUA SẤY THĂNG HOA VỊ NẾP CẨM</div>
           <p class="prod-desc">Sữa chua sấy nếp cẩm, giòn tan, vị chua ngọt hòa quyện, thơm bùi, ăn lạ miệng.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-gold">Đặt hàng →</a>
         </div>
       </div>
       <!-- Duplicate for scroll feel -->
@@ -2173,7 +2134,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">SÂM HOÀNG KỲ NAM</div>
           <p class="prod-desc">Sâm hoàng kỳ nam giúp tăng sinh lực, bổ khí huyết, cải thiện thể trạng, hỗ trợ sức khỏe lâu dài.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-green">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-green">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2186,7 +2147,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">CHUỐI HỘT RỪNG</div>
           <p class="prod-desc">Chuối hột rừng tự nhiên, chuyên dùng ngâm rượu, vị đặc trưng, được nhiều người tin dùng.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-green">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-green">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2197,7 +2158,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">CÂY BỔ MÁU</div>
           <p class="prod-desc">Cây bổ máu là thảo dược tự nhiên, hỗ trợ tăng cường khí huyết, cải thiện sức khỏe và giảm mệt mỏi.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-green">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-green">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card" style="opacity:.4;pointer-events:none;flex:0 0 80px;border:none;background:transparent;"></div>
@@ -2219,7 +2180,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">MĂNG KHÔ</div>
           <p class="prod-desc">Măng khô phơi tự nhiên, giòn dai, thơm đặc trưng, phù hợp nấu canh, xào, kho.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2232,7 +2193,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">MĂNG ỚT</div>
           <p class="prod-desc">Măng ớt giòn cay, chua nhẹ, đậm vị, ăn kèm cực bắt cơm, dễ gây nghiện.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2243,7 +2204,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">CHÈ BÁT TIÊN</div>
           <p class="prod-desc">Chè Bát Tiên thơm dịu, vị thanh, hậu ngọt, giúp thư giãn, phù hợp uống mỗi ngày.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2254,7 +2215,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">MẬT ONG RỪNG</div>
           <p class="prod-desc">Mật ong rừng tự nhiên, vị ngọt đậm, giàu dinh dưỡng, hỗ trợ tăng đề kháng.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2265,7 +2226,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">LẠC ĐỎ</div>
           <p class="prod-desc">Lạc đỏ tự nhiên, giàu dinh dưỡng, bùi thơm, tốt cho sức khỏe tim mạch.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card" style="opacity:.4;pointer-events:none;flex:0 0 80px;border:none;background:transparent;"></div>
@@ -2287,7 +2248,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">RƯỢU NGÂM CHUỐI HỘT</div>
           <p class="prod-desc">Rượu ngâm chuối hột, vị ngọt dịu, giúp thanh nhiệt, giải độc cơ thể.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2300,7 +2261,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">RƯỢU NGÂM ỔI HỒNG</div>
           <p class="prod-desc">Măng ớt giòn cay, chua nhẹ, đậm vị, ăn kèm cực bắt cơm, dễ gây nghiện.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2311,7 +2272,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">RƯỢU NGÂM SÂM CAU</div>
           <p class="prod-desc">Rượu ngâm sâm cau, vị đậm đà, giúp tăng cường sức khỏe, hỗ trợ tiêu hóa.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2322,7 +2283,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">RƯỢU NGÂM SÂM HOÀNG KỲ NAM</div>
           <p class="prod-desc">Rượu ngâm sâm hoàng kỳ nam, vị đậm đà, giúp tăng cường sức khỏe, hỗ trợ tiêu hóa.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2333,7 +2294,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">RƯỢU NGÂM TAM THẤT</div>
           <p class="prod-desc">Rượu ngâm vải thiếu Bắc Giang, vị ngọt dịu, giúp thanh nhiệt, giải độc cơ thể.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card">
@@ -2344,7 +2305,7 @@ footer {
         <div class="prod-body">
           <div class="prod-name">RƯỢU NGÂM 7 VỊ</div>
           <p class="prod-desc">Rượu ngâm tam thất, vị đậm đà, giúp tăng cường sức khỏe, hỗ trợ tiêu hóa.</p>
-          <a href="https://www.facebook.com/profile.php?id=61576907979929" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
+          <a href="https://www.facebook.com/tansonnatural/" target="_blank" class="prod-btn prod-btn-orange">Đặt hàng →</a>
         </div>
       </div>
       <div class="prod-card" style="opacity:.4;pointer-events:none;flex:0 0 80px;border:none;background:transparent;"></div>
@@ -2366,15 +2327,15 @@ footer {
     </h2>
     <p class="cta-sub sr">Dù bạn cần đặt hàng nông sản, tư vấn thiết kế, hay chỉ muốn hỏi thêm — hãy liên hệ. Tôi luôn sẵn sàng phục vụ.</p>
     <div class="cta-btns sr">
-      <a href="tel:0912002132" class="cta-btn cta-btn-main">
+      <a href="tel:0397127215" class="cta-btn cta-btn-main">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.1 3.38 2 2 0 012.07 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.61-.61a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        Gọi: 0912 002 132
+        Gọi: 0397 127 215
       </a>
       <a href="https://zalo.me/0397127215" target="_blank" class="cta-btn cta-btn-zalo">
         <span class="zalo-z">Z</span>
         Zalo: 0397 127 215
       </a>
-      <a href="https://www.facebook.com/profile.php?id=61576907979929/profile.php?id=61576907979929" target="_blank" class="cta-btn cta-btn-fb">
+      <a href="https://www.facebook.com/tansonnatural//profile.php?id=61576907979929" target="_blank" class="cta-btn cta-btn-fb">
         <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
         Facebook Shop
       </a>
@@ -2392,11 +2353,11 @@ footer {
     <div class="contact-info sr-l">
       <p>Mọi câu hỏi, yêu cầu đặt hàng hoặc hợp tác — đừng ngại liên hệ. Tôi sẽ phản hồi nhanh nhất có thể.</p>
       <div class="contact-links">
-        <a href="tel:0912002132" class="contact-link">
+        <a href="tel:0397127215" class="contact-link">
           <div class="cl-icon cl-icon-gold">📞</div>
           <div>
             <div class="cl-label">Điện thoại</div>
-            <div class="cl-value">0912 002 132</div>
+            <div class="cl-value">0397 127 215</div>
           </div>
         </a>
         <a href="https://zalo.me/0397127215" target="_blank" class="contact-link">
@@ -2406,7 +2367,7 @@ footer {
             <div class="cl-value">0397 127 215</div>
           </div>
         </a>
-        <a href="https://www.facebook.com/profile.php?id=61576907979929/profile.php?id=61576907979929" target="_blank" class="contact-link">
+        <a href="https://www.facebook.com/tansonnatural//profile.php?id=61576907979929" target="_blank" class="contact-link">
           <div class="cl-icon cl-icon-ind">
             <svg width="18" height="18" fill="#a5b4fc" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
           </div>
@@ -2426,7 +2387,7 @@ footer {
           </div>
           <div class="form-row">
             <label>Số điện thoại</label>
-            <input type="tel" placeholder="0912 000 000" required/>
+            <input type="tel" placeholder="0397 127 215" required/>
           </div>
           <div class="form-row">
             <label>Nội dung</label>
@@ -2448,9 +2409,9 @@ footer {
   <div class="foot-logo"><span>Tan Son</span>Natural</div>
   <p class="foot-copy">© 2026 Tan Son Natural · Thiết kế & phát triển bởi chính chủ</p>
   <div class="foot-links">
-    <a href="tel:0912002132">0912 002 132</a>
+    <a href="tel:0397127215">0397 127 215</a>
     <a href="https://zalo.me/0397127215" target="_blank">Zalo</a>
-    <a href="https://www.facebook.com/profile.php?id=61576907979929/profile.php?id=61576907979929" target="_blank">Facebook</a>
+    <a href="https://www.facebook.com/tansonnatural//profile.php?id=61576907979929" target="_blank">Facebook</a>
   </div>
 </footer>
 
@@ -2463,7 +2424,7 @@ footer {
 
     <div class="contact-item">
       <span>📞</span>
-      <a href="tel:0912002132">0912 002 132</a>
+      <a href="tel:0397127215">0397 127 215</a>
     </div>
 
     <div class="contact-item">
@@ -2473,7 +2434,7 @@ footer {
 
     <div class="contact-item">
       <span>🌐</span>
-      <a href="https://www.facebook.com/profile.php?id=61576907979929/profile.php?id=61576907979929" target="_blank">Facebook</a>
+      <a href="https://www.facebook.com/tansonnatural//profile.php?id=61576907979929" target="_blank">Facebook</a>
     </div>
 
   </div>
@@ -2511,7 +2472,6 @@ const nav = document.getElementById('nav');
 const testEl = document.querySelector('.test');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('solid', window.scrollY > 50);
-  testEl.classList.toggle('hidden', window.scrollY < 50);
 }, {passive:true});
 
 // ── Mobile menu ──────────────────────────
@@ -2544,17 +2504,129 @@ const srObs = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.sr,.sr-l,.sr-r').forEach(el => srObs.observe(el));
 
-// ── Timeline stagger ──────────────────────
-const tlObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const d = parseInt(e.target.dataset.d || 0);
-      setTimeout(() => e.target.classList.add('vis'), d);
-      tlObs.unobserve(e.target);
+// ── Timeline GSAP reveal ────────────────────
+if (window.gsap && window.ScrollTrigger) {
+  gsap.utils.toArray('.tl-item').forEach(el => {
+    gsap.from(el, {
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 90%',
+        toggleActions: 'play none none none'
+      },
+      x: -20,
+      autoAlpha: 0,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+  });
+}
+
+// ── Slider arrows for product track ───────────
+function updateSliderButtons(track, prevBtn, nextBtn) {
+  const maxScroll = track.scrollWidth - track.clientWidth;
+  if (maxScroll <= 0) {
+    prevBtn.classList.add('slider-hidden');
+    nextBtn.classList.add('slider-hidden');
+    return;
+  }
+  prevBtn.classList.toggle('slider-hidden', track.scrollLeft <= 10);
+  nextBtn.classList.toggle('slider-hidden', track.scrollLeft >= maxScroll - 10);
+}
+
+function initProductSliderControls() {
+  document.querySelectorAll('.h-scroll-track').forEach((track) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'product-slider';
+
+    const prevBtn = document.createElement('button');
+    prevBtn.type = 'button';
+    prevBtn.className = 'slider-arrow slider-prev';
+    prevBtn.setAttribute('aria-label', 'Lùi sản phẩm');
+    prevBtn.innerHTML = '‹';
+
+    const nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.className = 'slider-arrow slider-next';
+    nextBtn.setAttribute('aria-label', 'Tiến sản phẩm');
+    nextBtn.innerHTML = '›';
+
+    track.parentNode.insertBefore(wrapper, track);
+    wrapper.appendChild(prevBtn);
+    wrapper.appendChild(track);
+    wrapper.appendChild(nextBtn);
+
+    const scrollAmount = () => track.clientWidth * 0.7;
+
+    prevBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', () => {
+      track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+    });
+
+    track.addEventListener('scroll', () => updateSliderButtons(track, prevBtn, nextBtn));
+    window.addEventListener('resize', () => updateSliderButtons(track, prevBtn, nextBtn));
+
+    updateSliderButtons(track, prevBtn, nextBtn);
+  });
+}
+initProductSliderControls();
+
+function initProductDetailButtons() {
+  const slugs = {
+    'SỮA CHUA NẾP CẨM': 'sua-chua-nep-cam',
+    'SỮA CHUA NHA ĐAM': 'sua-chua-nha-dam',
+    'SỮA CHUA NẾP CẨM DÊ': 'sua-chua-nep-cam-de',
+    'SỮA CHUA PHÔ MAI': 'sua-chua-pho-mai',
+    'SỮA CHUA DỪA NON': 'sua-chua-dua-non',
+    'SỮA CHUA NGUYÊN CHẤT DÊ': 'sua-chua-nguyen-chat-de',
+    'SỮA CHUA TRÂN CHÂU': 'sua-chua-tran-chau',
+    'SỮA CHUA BỐN MÙA': 'sua-chua-bon-mua',
+    'SỮA CHUA UỐNG HOA QUẢ': 'sua-chua-uong-hoa-qua',
+    'SỮA CHUA VỊ TRUYỀN THỐNG': 'sua-chua-vi-truyen-thong',
+    'SỮA TƯƠI DÊ': 'sua-tuoi-de',
+    'SỮA CHUA SẤY THĂNG HOA VỊ TRUYỀN THỐNG': 'sua-chua-say-truyen-thong',
+    'SỮA CHUA SẤY THĂNG HOA VỊ NẾP CẨM': 'sua-chua-say-nep-cam',
+    'SÂM HOÀNG KỲ NAM': 'sam-hoang-ky-nam',
+    'CHUỐI HỘT RỪNG': 'chuoi-hot-rung',
+    'CÂY BỔ MÁU': 'cay-bo-mau',
+    'MĂNG KHÔ': 'mang-kho',
+    'MĂNG ỚT': 'mang-ot',
+    'CHÈ BÁT TIÊN': 'che-bat-tien',
+    'MẬT ONG RỪNG': 'mat-ong-rung',
+    'LẠC ĐỎ': 'lac-do',
+    'RƯỢU NGÂM CHUỐI HỘT': 'ruou-chuoi-hot',
+    'RƯỢU NGÂM ỔI HỒNG': 'ruou-oi-hong',
+    'RƯỢU NGÂM SÂM CAU': 'ruou-sam-cau',
+    'RƯỢU NGÂM SÂM HOÀNG KỲ NAM': 'ruou-sam-hoang-ky',
+    'RƯỢU NGÂM TAM THẤT': 'ruou-tam-that',
+    'RƯỢU NGÂM 7 VỊ': 'ruou-7-vi'
+  };
+
+  document.querySelectorAll('.prod-card').forEach(card => {
+    const nameEl = card.querySelector('.prod-name');
+    const prodBody = card.querySelector('.prod-body');
+    if (!nameEl || !prodBody) return;
+
+    const productName = nameEl.textContent.trim();
+    const slug = slugs[productName];
+    if (!slug) return;
+
+    const link = document.createElement('a');
+    link.href = `product-detail.html?product=${slug}`;
+    link.className = 'prod-name-link';
+    link.textContent = productName;
+    nameEl.textContent = '';
+    nameEl.appendChild(link);
+
+    const orderBtn = prodBody.querySelector('.prod-btn');
+    if (orderBtn) {
+      orderBtn.href = `product-detail.html?product=${slug}`;
+      orderBtn.removeAttribute('target');
     }
   });
-}, { threshold: 0.2 });
-document.querySelectorAll('.tl-item').forEach(el => tlObs.observe(el));
+}
+initProductDetailButtons();
 
 // ── Horizontal drag scroll ────────────────
 document.querySelectorAll('.h-scroll-track').forEach(track => {
@@ -2590,7 +2662,7 @@ const cform = document.getElementById('cform');
 const formOk = document.getElementById('form-ok');
 cform.addEventListener('submit', e => {
   e.preventDefault();
-  const btn = cform.querySelector('.form-submit');
+  const btn = cform.querySelector('.form-submit'); 
   btn.textContent = 'Đang gửi...';
   btn.style.opacity = '0.7';
   btn.disabled = true;

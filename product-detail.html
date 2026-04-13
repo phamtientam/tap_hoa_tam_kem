@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Chi Tiết Sản Phẩm - Tân Sơn Natural</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"/>
+<!-- Fallback fonts if above unavailable -->
+ <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --gold: #f0a500;
+  --gold2: #ffcc55;
+  --amber: #e67e00;
+  --bg: #0d5a3d;
+  --bg2: #1a7c52;
+  --surface: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.07);
+  --text: #ffffff;
+  --muted: #c0d5b8;
+  --font-display: 'Bebas Neue', 'Clash Display', sans-serif;
+  --font-body: 'DM Sans', 'Cabinet Grotesk', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* =============================================
+   CUSTOM CURSOR
+============================================= */
+#cursor {
+  position: fixed;
+  width: 12px; height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: difference;
+}
+#cursor-ring {
+  position: fixed;
+  width: 40px; height: 40px;
+  border: 1.5px solid rgba(240,165,0,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.12s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
+}
+body:hover #cursor-ring { opacity: 1; }
+.cursor-grow #cursor { width: 28px; height: 28px; }
+.cursor-grow #cursor-ring { width: 60px; height: 60px; border-color: var(--gold); }
+
+/* =============================================
+   NOISE TEXTURE OVERLAY
+============================================= */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9990;
+}
+main { max-width: 1000px; margin: 140px auto 80px; padding: 0 1.5rem; }
+.back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--gold); text-decoration: none; font-weight: 700; margin-bottom: 1.5rem; }
+.back-link:hover { color: var(--gold2); }
+h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.05; margin-bottom: 1rem; }
+.product-meta { color: var(--muted); margin-bottom: 1.5rem; }
+.product-tags { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 2rem; }
+.product-tag { padding: 0.65rem 1rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); font-size: 0.8rem; color: var(--text); }
+.product-img { width: 100%; border-radius: 24px; overflow: hidden; margin-bottom: 1.75rem; }
+.product-img img { width: 100%; height: 520px; object-fit: cover; display: block; }
+.product-content { color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 2rem; }
+.product-title {font-size: 3rem;}
+.product-content h2 { font-family: var(--font-display); font-size: clamp(2rem, 3vw, 3rem); margin: 2rem 0 1rem; }
+.product-content p { margin-bottom: 1.4rem; }
+.product-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+.detail-btn, .order-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 1rem 1.6rem; border-radius: 14px; text-decoration: none; font-weight: 700; transition: all 0.25s ease; }
+.detail-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #fff; }
+.detail-btn:hover { background: rgba(255,255,255,0.12); }
+.order-btn { background: var(--gold); color: #000; }
+.order-btn:hover { background: var(--gold2); }
+/* =============================================
+   NAV
+============================================= */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.5s;
+}
+nav.solid {
+  padding: 1rem 3rem;
+  background: rgba(5,6,10,0.8);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+.nav-logo img {
+  width: 55px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 2.5rem; align-items: center; }
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+  cursor: none;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  padding: 0.6rem 1.5rem;
+  background: var(--gold);
+  color: #000 !important;
+  border-radius: 999px;
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  transition: all 0.25s !important;
+}
+.nav-cta:hover { background: var(--gold2) !important; transform: scale(1.03); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: all 0.3s; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: all 0.3s; }
+.foot-logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  text-align: center;
+}
+.foot-logo span { color: var(--gold); }
+.foot-copy {
+  text-align: center;
+  color: var(--muted);
+  margin-top: 0.75rem;
+  font-size: 0.92rem;
+}
+
+.product-description ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.product-description li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+  line-height: 1.6;
+  font-size: 15px;
+  color: white;
+}
+
+.product-description li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #2e7d32; /* xanh lá nhìn sạch */
+  font-weight: bold;
+}
+/* =============================================
+   FOOTER
+============================================= */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: rgba(0,0,0,0.3);
+}
+.foot-logo { font-family:var(--font-display); font-size:1.4rem; }
+.foot-logo span { color: var(--gold); }
+.foot-copy { font-size:0.75rem; color:var(--muted); }
+.foot-links { display:flex; gap:1.5rem; }
+.foot-links a { font-size:0.75rem; color:var(--muted); text-decoration:none; cursor:none; transition:color 0.2s; }
+.foot-links a:hover { color:var(--gold); }
+@media (max-width: 900px) {
+  nav { padding: 1.2rem 1.5rem; }
+  nav.solid { padding: 0.9rem 1.5rem; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+}
+@media (max-width: 768px) { .product-img img { height: 360px; } .product-actions { flex-direction: column; } }
+
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ── NAV ──────────────────────────── -->
+<nav id="nav">
+  <a href="./index.html" class="nav-logo">
+    <img src="./img/lg-jpg.png" alt="Logo Tân Sơn Natural" />
+    <span>Tan Son</span>Natural
+  </a>
+  <div class="nav-links">
+    <a href="index.html#about">Về Tôi</a>
+    <a href="index.html#services">Dịch Vụ</a>
+    <a href="index.html#products">Sản Phẩm</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#contact">Liên Hệ</a>
+    <a href="#" class="nav-cta" onclick="openPopup()">Gọi Ngay</a>
+  </div>
+  <button class="hamburger" id="ham" aria-label="menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── Mobile menu overlay ──────────── -->
+<div id="mob-menu" style="display:none;position:fixed;inset:0;z-index:900;background:rgba(5,6,10,0.97);backdrop-filter:blur(20px);padding:6rem 2rem 2rem;flex-direction:column;gap:2rem;">
+  <a href="#about" class="mob-link" style="font-family:var(--font-display);font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Về Tôi</a>
+  <a href="#services" class="mob-link" style="font-family:var(--font-display);font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Dịch Vụ</a>
+  <a href="#products" class="mob-link" style="font-family:var(--font-display);font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Sản Phẩm</a>
+  <a href="blog.html" class="mob-link" style="font-family:var(--font-display);font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Blog</a>
+  <a href="#contact" class="mob-link" style="font-family:var(--font-display);font-size:3rem;color:#fff;text-decoration:none;letter-spacing:0.05em;">Liên Hệ</a>
+  <div style="margin-top:auto;display:flex;gap:1rem;flex-wrap:wrap;">
+    <a href="tel:0397127215" style="padding:.8rem 1.8rem;background:var(--gold);color:#000;border-radius:999px;font-weight:700;text-decoration:none;font-size:.9rem;">📞 0397 127 215</a>
+    <a href="https://zalo.me/0397127215" target="_blank" style="padding:.8rem 1.8rem;background:rgba(0,104,255,0.15);border:1px solid rgba(0,104,255,0.3);color:#60a5fa;border-radius:999px;font-weight:700;text-decoration:none;font-size:.9rem;">Zalo</a>
+  </div>
+</div>
+<main>
+  <a href="index.html#products" class="back-link">← Quay lại cửa hàng</a>
+  <h1 id="product-title" class="product-title">Tên sản phẩm</h1>
+  <div class="product-meta" id="product-meta">Danh mục • Giá trị</div>
+  <div class="product-tags" id="product-tags">Danh mục • Giá trị</div>
+  <div class="product-img"><img id="product-image" src="./img/bg.png" alt="Sản phẩm"/></div>
+  <div class="product-actions">
+    <a id="detail-order" href="https://www.facebook.com/tansonnatural/" target="_blank" class="order-btn">Đặt hàng ngay</a>
+    <a href="index.html#products" class="detail-btn">Xem thêm sản phẩm</a>
+  </div>
+  <article class="product-content" id="product-description">
+    <p>Chi tiết sản phẩm sẽ xuất hiện tại đây. Hãy chọn sản phẩm trong danh sách để xem đầy đủ thông tin.</p>
+  </article>
+</main>
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="foot-logo"><span>Tan Son</span>Natural</div>
+  <p class="foot-copy">© 2026 Tan Son Natural · Thiết kế & phát triển bởi chính chủ</p>
+  <div class="foot-links">
+    <a href="tel:0397127215">0397 127 215</a>
+    <a href="https://zalo.me/0397127215" target="_blank">Zalo</a>
+    <a href="https://www.facebook.com/tansonnatural/" target="_blank">Facebook</a>
+  </div>
+</footer>
+<script>
+// ── Custom cursor ─────────────────────────
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx+'px';
+  cur.style.top  = my+'px';
+});
+
+function lerpCursor() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx+'px';
+  ring.style.top  = ry+'px';
+  requestAnimationFrame(lerpCursor);
+}
+lerpCursor();
+
+document.querySelectorAll('a,button,.prod-card,.svc-card').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-grow'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-grow'));
+});
+
+
+
+function getQueryParam(name) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name);
+}
+
+const productKey = getQueryParam('product');
+const products = {
+  'sam-hoang-ky-nam': {
+    title: 'SÂM HOÀNG KỲ NAM',
+    meta: 'Thảo dược • Bổ dưỡng',
+    tags: ['Sâm', 'Thảo dược', 'Bổ khí'],
+    image: './img/re-sam.jpg',
+    description: `
+      <div class="product-description">
+        <h2>Sâm Hoàng Kỳ Nam Tân Sơn Natural</h2>
+        
+        <p>
+          Sâm Hoàng Kỳ Nam Tân Sơn Natural là sản phẩm được thu hái và tuyển chọn từ nguồn dược liệu tự nhiên 
+          tại vùng núi Tân Sơn (Phú Thọ), nơi có điều kiện khí hậu và thổ nhưỡng phù hợp cho các loại cây dược liệu phát triển. 
+          Sâm được sơ chế và phơi/sấy khô theo phương pháp truyền thống, đảm bảo giữ nguyên dưỡng chất quý giá, 
+          không sử dụng hóa chất hay chất bảo quản, an toàn cho sức khỏe người dùng.
+        </p>
+
+        <p>
+          Sâm Hoàng Kỳ Nam có vị hơi ngọt, tính ấm, thường được sử dụng để hãm trà, ngâm rượu hoặc nấu cùng các món ăn 
+          bồi bổ cơ thể như gà hầm, canh dưỡng sinh. Đây là sản phẩm phù hợp cho người cần tăng cường sức khỏe 
+          và cải thiện thể trạng.
+        </p>
+
+        <h3>Cách sử dụng</h3>
+        <ul>
+          <li>Hãm trà: Dùng 5–10g sâm, hãm với nước nóng trong 10–15 phút</li>
+          <li>Ngâm rượu: Ngâm sâm với rượu trắng từ 30–45 ngày</li>
+          <li>Hầm canh: Kết hợp với gà, xương để bồi bổ cơ thể</li>
+        </ul>
+
+        <h3>Công dụng & lợi ích</h3>
+        <ul>
+          <li>Hỗ trợ tăng cường sức đề kháng</li>
+          <li>Giúp bồi bổ cơ thể, giảm mệt mỏi</li>
+          <li>Hỗ trợ lưu thông khí huyết</li>
+          <li>Phù hợp cho người suy nhược, cần phục hồi sức khỏe</li>
+        </ul>
+
+        <h3>Hạn sử dụng</h3>
+        <ul>
+          <li>12 – 24 tháng kể từ ngày sản xuất</li>
+        </ul>
+
+        <h3>Bảo quản</h3>
+        <ul>
+          <li>Bảo quản nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp.</li>
+          <li>Đậy kín sau khi sử dụng để tránh ẩm mốc và giữ chất lượng sản phẩm.</li>
+        </ul>
+      </div>
+    `
+  },
+  'chuoi-hot-rung': {
+    title: 'CHUỐI HỘT RỪNG',
+    meta: 'Thảo dược • Nước uống & ngâm',
+    tags: ['Chuối hột', 'Nguyên bản', 'Tự nhiên'],
+    image: './img/chuoi_hot_rung.png',
+    description: `
+      <div class="product-description">
+        <h2>Chuối Hột Rừng Tân Sơn Natural</h2>
+        
+        <p>
+          Chuối hột rừng Tân Sơn Natural được thu hái từ những cây chuối mọc tự nhiên trong rừng sâu 
+          tại vùng núi Tân Sơn (Phú Thọ). Trái chuối nhỏ, nhiều hạt, được người dân bản địa lựa chọn kỹ lưỡng 
+          khi chín già, sau đó thái lát và phơi khô tự nhiên dưới nắng, không sử dụng hóa chất hay chất bảo quản, 
+          giữ nguyên giá trị dược liệu và độ an toàn cho người sử dụng.
+        </p>
+
+        <p>
+          Chuối hột rừng có vị chát nhẹ, hậu ngọt, thường được sử dụng để ngâm rượu, hãm trà hoặc sắc nước uống. 
+          Đây là sản phẩm quen thuộc trong các bài thuốc dân gian, phù hợp cho người quan tâm đến sức khỏe 
+          và xu hướng sử dụng sản phẩm tự nhiên.
+        </p>
+
+        <h3>Cách sử dụng</h3>
+        <ul>
+          <li>Ngâm rượu: Dùng chuối khô ngâm với rượu trắng từ 30–45 ngày</li>
+          <li>Hãm trà: Dùng 5–10 lát chuối, hãm với nước nóng 10–15 phút</li>
+          <li>Sắc nước: Đun với nước uống hàng ngày</li>
+        </ul>
+
+        <h3>Công dụng & lợi ích</h3>
+        <ul>
+          <li>Hỗ trợ tiêu hóa, tốt cho đường ruột</li>
+          <li>Giúp thanh lọc cơ thể</li>
+          <li>Hỗ trợ cân bằng cơ thể khi sử dụng hợp lý</li>
+          <li>Phù hợp với người ưa chuộng sản phẩm tự nhiên</li>
+        </ul>
+
+        <h3>Hạn sử dụng</h3>
+        <ul>
+          <li>12 tháng kể từ ngày sản xuất</li>
+        </ul>
+
+        <h3>Bảo quản</h3>
+        <ul>
+          <li>Bảo quản nơi khô ráo, thoáng mát, tránh ẩm mốc.</li>
+          <li>Đậy kín sau khi sử dụng để giữ chất lượng tốt nhất.</li>
+        </ul>
+      </div>
+    `
+  },
+  'cay-bo-mau': {
+    title: 'CÂY BỔ MÁU',
+    meta: 'Thảo dược • Hỗ trợ huyết',
+    tags: ['Bổ máu', 'Tự nhiên', 'Lành tính'],
+    image: './img/cay_bo_mau.jpeg',
+    description: `
+      <div class="product-description">
+        <h2>Cây Bổ Máu (Cỏ Máu) Tân Sơn Natural</h2>
+        
+        <p>
+          Cây bổ máu Tân Sơn Natural (còn gọi là cỏ máu) được thu hái từ rừng tự nhiên tại vùng núi Tân Sơn (Phú Thọ), 
+          nơi nổi tiếng với nguồn dược liệu phong phú và sạch. Thân cây sau khi khai thác được thái lát, phơi khô tự nhiên 
+          dưới nắng, không sử dụng hóa chất hay chất bảo quản, giúp giữ nguyên màu sắc và dưỡng chất đặc trưng.
+        </p>
+
+        <p>
+          Khi đun nước, cây cho màu đỏ sẫm tự nhiên, thường được sử dụng như một loại nước uống dân gian để bồi bổ cơ thể. 
+          Sản phẩm phù hợp với người cần chăm sóc sức khỏe theo hướng tự nhiên và lành tính.
+        </p>
+
+        <h3>Cách sử dụng</h3>
+        <ul>
+          <li>Sắc nước: Dùng 20–30g đun với 1–1.5 lít nước trong 15–20 phút</li>
+          <li>Dùng uống hàng ngày như nước trà</li>
+          <li>Có thể kết hợp với các dược liệu khác để tăng hiệu quả</li>
+        </ul>
+
+        <h3>Công dụng & lợi ích</h3>
+        <ul>
+          <li>Hỗ trợ bồi bổ cơ thể, giúp cơ thể khỏe mạnh</li>
+          <li>Hỗ trợ lưu thông khí huyết</li>
+          <li>Phù hợp cho người mệt mỏi, suy nhược</li>
+          <li>Sử dụng lâu dài theo hướng chăm sóc sức khỏe tự nhiên</li>
+        </ul>
+
+        <h3>Hạn sử dụng</h3>
+        <ul>
+          <li>12 – 24 tháng kể từ ngày sản xuất</li>
+        </ul>
+
+        <h3>Bảo quản</h3>
+        <ul>
+          <li>Bảo quản nơi khô ráo, thoáng mát, tránh ẩm mốc.</li>
+          <li>Đậy kín sau khi sử dụng để giữ chất lượng tốt nhất.</li>
+        </ul>
+      </div>
+    `
+  },
+  'mang-kho': {
+    title: 'MĂNG KHÔ',
+    meta: 'Đặc sản • Măng rừng',
+    tags: ['Măng khô', 'Giòn dai', 'Thuần tự nhiên'],
+    image: './img/mang_kho.jpg',
+    description: `<div class="product-description">
+                    <h2>Măng khô Tân Sơn Natural</h2>
+                    
+                    <p>
+                      Măng khô Tân Sơn Natural là sản phẩm được thu hái từ những búp măng non tự nhiên 
+                      tại vùng núi Tân Sơn (Phú Thọ), nơi có khí hậu trong lành và thổ nhưỡng giàu dinh dưỡng. 
+                      Măng được tuyển chọn kỹ lưỡng, sau đó luộc sơ và phơi khô hoàn toàn dưới nắng tự nhiên, 
+                      không sử dụng hóa chất hay chất bảo quản, đảm bảo giữ trọn hương vị và độ an toàn cho sức khỏe.
+                    </p>
+
+                    <p>
+                      Măng khô có vị ngọt thanh, dai giòn tự nhiên, phù hợp chế biến nhiều món ăn truyền thống 
+                      như măng hầm xương, măng nấu canh, măng xào thịt hoặc dùng trong các dịp lễ, Tết.
+                    </p>
+
+                    <h3>Cách sử dụng</h3>
+                    <ul>
+                      <li>Ngâm măng trong nước sạch từ 6–12 giờ</li>
+                      <li>Thay nước 1–2 lần để măng sạch và bớt vị chát</li>
+                      <li>Luộc lại trước khi chế biến để măng nở mềm</li>
+                    </ul>
+
+                    <h3>Công dụng & lợi ích</h3>
+                    <ul>
+                      <li>Giàu chất xơ, hỗ trợ tiêu hóa</li>
+                      <li>Giúp thanh lọc cơ thể</li>
+                      <li>Tạo cảm giác no lâu, phù hợp ăn uống lành mạnh</li>
+                      <li>Bổ sung vitamin và khoáng chất tự nhiên</li>
+                    </ul>
+
+                    <h3>Hạn sử dụng</h3>
+                    <ul>
+                      <li>6 – 12 tháng kể từ ngày sản xuất</li>
+                    </ul>
+
+                    <h3>Bảo quản</h3>
+                    <ul>
+                      <li>Bảo quản nơi khô ráo, thoáng mát, tránh ẩm mốc.</li>
+                      <li>Sau khi mở túi nên buộc kín hoặc để trong hộp kín để giữ chất lượng tốt nhất.</li>
+                    </ul>
+                  </div>`
+  },
+  'mang-ot': {
+    title: 'MĂNG ỚT',
+    meta: 'Đặc sản • Giòn cay',
+    tags: ['Măng ớt', 'Cay nhẹ', 'Đặc sản'],
+    image: './img/mang_ot.jpg',
+    description: `
+      <div class="product-description">
+        <h2>Măng Ớt Tân Sơn Natural</h2>
+        
+        <p>
+          Măng ớt Tân Sơn Natural được chế biến từ những búp măng tươi non thu hái tại vùng núi Tân Sơn (Phú Thọ), 
+          kết hợp với ớt tươi và gia vị tự nhiên theo phương pháp truyền thống. Măng được sơ chế sạch, ngâm ủ tự nhiên 
+          trong môi trường đảm bảo vệ sinh, không sử dụng chất bảo quản, giữ được độ giòn, vị chua cay đặc trưng và an toàn cho người sử dụng.
+        </p>
+
+        <p>
+          Sản phẩm có hương vị chua cay hài hòa, giòn sần sật, rất thích hợp dùng làm món ăn kèm trong bữa cơm gia đình, 
+          ăn với bún, phở hoặc các món thịt luộc, giúp tăng hương vị và kích thích vị giác.
+        </p>
+
+        <h3>Cách sử dụng</h3>
+        <ul>
+          <li>Dùng trực tiếp như món ăn kèm</li>
+          <li>Ăn cùng bún, phở, mì hoặc cơm</li>
+          <li>Kết hợp với các món luộc, nướng để tăng hương vị</li>
+        </ul>
+
+        <h3>Công dụng & lợi ích</h3>
+        <ul>
+          <li>Kích thích vị giác, giúp ăn ngon miệng hơn</li>
+          <li>Bổ sung chất xơ từ măng tự nhiên</li>
+          <li>Phù hợp cho bữa ăn gia đình hàng ngày</li>
+          <li>Tiện lợi, dễ sử dụng</li>
+        </ul>
+
+        <h3>Hạn sử dụng</h3>
+        <ul>
+          <li>3 – 6 tháng kể từ ngày sản xuất (tùy điều kiện bảo quản)</li>
+        </ul>
+
+        <h3>Bảo quản</h3>
+        <ul>
+          <li>Bảo quản nơi khô ráo, thoáng mát.</li>
+          <li>Ngon hơn khi bảo quản trong ngăn mát tủ lạnh sau khi mở nắp.</li>
+          <li>Dùng dụng cụ sạch khi lấy sản phẩm để tránh hư hỏng.</li>
+        </ul>
+      </div>
+    `
+  },
+  'che-bat-tien': {
+    title: 'CHÈ BÁT TIÊN',
+    meta: 'Đặc sản • Trà thảo mộc',
+    tags: ['Chè', 'Thảo mộc', 'Thanh mát'],
+    image: './img/che_bat_tien.jpg',
+    description: `
+      <div class="product-description">
+        <h2>Chè Bát Tiên Tân Sơn Natural</h2>
+        
+        <p>
+          Chè Bát Tiên Tân Sơn Natural là giống chè đặc sản được trồng tại vùng núi Tân Sơn (Phú Thọ), 
+          nơi có khí hậu mát mẻ, sương mù quanh năm và thổ nhưỡng giàu dinh dưỡng. Lá chè được thu hái thủ công, 
+          chọn những búp non chất lượng, sau đó chế biến theo phương pháp truyền thống, không sử dụng hương liệu 
+          hay chất bảo quản, giữ trọn hương thơm tự nhiên và vị chè đặc trưng.
+        </p>
+
+        <p>
+          Nước chè có màu vàng xanh trong, hương thơm dịu nhẹ, vị chát thanh ban đầu và hậu ngọt sâu. 
+          Đây là loại chè phù hợp cho người yêu trà, thích thưởng thức hương vị tự nhiên và tinh tế 
+          trong từng chén nước.
+        </p>
+
+        <h3>Cách sử dụng</h3>
+        <ul>
+          <li>Dùng 5–8g chè cho 150–200ml nước</li>
+          <li>Tráng chè qua nước nóng trước khi pha</li>
+          <li>Pha với nước sôi khoảng 80–90°C trong 20–30 giây</li>
+          <li>Có thể pha nhiều lần nước cho đến khi nhạt vị</li>
+        </ul>
+
+        <h3>Công dụng & lợi ích</h3>
+        <ul>
+          <li>Giúp tỉnh táo, thư giãn tinh thần</li>
+          <li>Hỗ trợ chống oxy hóa tự nhiên</li>
+          <li>Phù hợp cho thói quen uống trà hàng ngày</li>
+          <li>Góp phần duy trì lối sống lành mạnh</li>
+        </ul>
+
+        <h3>Hạn sử dụng</h3>
+        <ul>
+          <li>12 tháng kể từ ngày sản xuất</li>
+        </ul>
+
+        <h3>Bảo quản</h3>
+        <ul>
+          <li>Bảo quản nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp.</li>
+          <li>Đậy kín sau khi mở để giữ hương thơm và chất lượng chè.</li>
+        </ul>
+      </div>
+    `
+  },
+  'mat-ong-rung': {
+    title: 'MẬT ONG RỪNG',
+    meta: 'Đặc sản • Nguyên chất',
+    tags: ['Mật ong', 'Tinh túy', 'Chống oxy hóa'],
+    image: './img/mat_ong.jpg',
+    description: `
+      <div class="product-description">
+        <h2>Mật Ong Nhãn Tân Sơn Natural</h2>
+        
+        <p>
+          Mật ong nhãn Tân Sơn Natural được thu hoạch từ những đàn ong lấy mật tự nhiên trên các vườn hoa nhãn 
+          trong mùa nở rộ. Nguồn mật được chắt lọc từ hoa nhãn nên có màu vàng óng đẹp mắt, hương thơm dịu nhẹ 
+          đặc trưng và vị ngọt thanh dễ chịu. Sản phẩm được khai thác và lọc thô, không pha trộn, không sử dụng 
+          chất bảo quản, đảm bảo giữ nguyên giá trị tự nhiên và an toàn cho người sử dụng.
+        </p>
+
+        <p>
+          Mật ong nhãn có độ sánh vừa phải, dễ sử dụng trong nhiều mục đích như pha nước uống, chế biến món ăn 
+          hoặc dùng trực tiếp. Đây là sản phẩm phù hợp cho gia đình sử dụng hàng ngày và chăm sóc sức khỏe tự nhiên.
+        </p>
+
+        <h3>Cách sử dụng</h3>
+        <ul>
+          <li>Pha với nước ấm uống vào buổi sáng</li>
+          <li>Kết hợp với chanh, gừng để tăng hương vị</li>
+          <li>Dùng trực tiếp hoặc làm gia vị trong chế biến món ăn</li>
+        </ul>
+
+        <h3>Công dụng & lợi ích</h3>
+        <ul>
+          <li>Bổ sung năng lượng tự nhiên cho cơ thể</li>
+          <li>Hỗ trợ tăng cường sức đề kháng</li>
+          <li>Giúp làm dịu cổ họng khi sử dụng hợp lý</li>
+          <li>Phù hợp cho chế độ ăn uống lành mạnh</li>
+        </ul>
+
+        <h3>Hạn sử dụng</h3>
+        <ul>
+          <li>24 tháng kể từ ngày sản xuất</li>
+        </ul>
+
+        <h3>Bảo quản</h3>
+        <ul>
+          <li>Bảo quản nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp.</li>
+          <li>Đậy kín sau khi sử dụng, tránh để nước hoặc tạp chất rơi vào.</li>
+        </ul>
+      </div>
+    `
+  },
+  'lac-do': {
+    title: 'LẠC ĐỎ',
+    meta: 'Đặc sản • Giàu dinh dưỡng',
+    tags: ['Lạc đỏ', 'Bùi thơm', 'Sức khỏe'],
+    image: './img/lac_do.jpeg',
+    description: `
+      <div class="product-description">
+        <h2>Lạc Đỏ Khô Tân Sơn Natural</h2>
+        
+        <p>
+          Lạc đỏ khô Tân Sơn Natural được trồng và thu hoạch tại vùng đất đồi núi Tân Sơn (Phú Thọ), 
+          nơi có thổ nhưỡng phù hợp giúp hạt lạc chắc, bùi và giàu dinh dưỡng. Sau khi thu hoạch, lạc được 
+          phơi khô tự nhiên dưới nắng, không sử dụng hóa chất hay chất bảo quản, đảm bảo giữ nguyên hương vị 
+          thơm ngon và độ an toàn cho người sử dụng.
+        </p>
+
+        <p>
+          Hạt lạc đỏ có lớp vỏ mỏng màu đỏ đặc trưng, bên trong nhân béo bùi, khi chế biến cho hương vị thơm 
+          tự nhiên. Sản phẩm phù hợp để rang ăn trực tiếp, làm nguyên liệu nấu ăn hoặc chế biến các món ăn 
+          truyền thống trong gia đình.
+        </p>
+
+        <h3>Cách sử dụng</h3>
+        <ul>
+          <li>Rang chín để ăn trực tiếp</li>
+          <li>Luộc hoặc làm nguyên liệu cho các món ăn</li>
+          <li>Dùng làm lạc rang muối, lạc tẩm gia vị</li>
+        </ul>
+
+        <h3>Công dụng & lợi ích</h3>
+        <ul>
+          <li>Giàu chất béo tốt và protein thực vật</li>
+          <li>Cung cấp năng lượng cho cơ thể</li>
+          <li>Phù hợp cho chế độ ăn uống lành mạnh</li>
+          <li>Thích hợp làm món ăn vặt hoặc bổ sung dinh dưỡng</li>
+        </ul>
+
+        <h3>Hạn sử dụng</h3>
+        <ul>
+          <li>6 – 12 tháng kể từ ngày sản xuất</li>
+        </ul>
+
+        <h3>Bảo quản</h3>
+        <ul>
+          <li>Bảo quản nơi khô ráo, thoáng mát, tránh ẩm mốc.</li>
+          <li>Đậy kín sau khi mở để giữ độ giòn và hương vị.</li>
+        </ul>
+      </div>
+    `
+  },
+  'ruou-chuoi-hot': {
+    title: 'RƯỢU NGÂM CHUỐI HỘT',
+    meta: 'Rượu ngâm • Thảo dược',
+    tags: ['Rượu', 'Chuối hột', 'Thanh nhiệt'],
+    image: './img/ruou_2.jpg',
+    description: '<p>Rượu ngâm chuối hột Tân Sơn Natural là sự kết hợp giữa trái chuối hột rừng và men rượu truyền thống, mang đến hương vị ấm áp và hậu ngọt dịu. Sản phẩm được ủ kỹ, giúp dược tính thấm đều và cân bằng hương vị.</p>' +
+      '<p>Ngoài hương vị đặc trưng, rượu chuối hột còn nổi tiếng với công dụng hỗ trợ tiêu hóa và tăng cường tuần hoàn máu. Đây là lựa chọn phù hợp cho người muốn dùng sản phẩm bổ dưỡng theo kiểu truyền thống.</p>' +
+      '<p>Uống nhẹ khi dùng kèm món ăn miền núi hoặc dùng làm quà biếu. Sản phẩm đem lại cảm giác dễ chịu và ấm áp ngay từ ngụm đầu tiên.</p>'
+  },
+  'ruou-oi-hong': {
+    title: 'RƯỢU NGÂM ỔI HỒNG',
+    meta: 'Rượu ngâm • Trái cây',
+    tags: ['Rượu', 'Ổi hồng', 'Ngọt nhẹ'],
+    image: './img/ruou_3.jpg',
+    description: '<p>Rượu ngâm ổi hồng mang đến vị ngọt thanh và mùi thơm trái cây đặc trưng, rất phù hợp với những buổi gặp gỡ nhẹ nhàng. Quá trình ngâm rượu giúp đưa tinh chất ổi thấm đều, tạo nên lớp hương mềm mượt và đậm đà.</p>' +
+      '<p>Sản phẩm là lựa chọn đẹp mắt và tinh tế để làm quà biếu cho người thân, bạn bè. Ổi hồng được chọn lọc kỹ, bảo đảm độ chín vừa phải và giữ lại hương thơm tự nhiên.</p>' +
+      '<p>Uống rượu ổi hồng ở nhiệt độ mát để cảm nhận sự cân bằng giữa vị ngọt và hương thơm, thích hợp dùng trong các buổi tiệc gia đình hoặc dịp thư giãn cuối tuần.</p>'
+  },
+  'ruou-sam-cau': {
+    title: 'RƯỢU NGÂM SÂM CAU',
+    meta: 'Rượu ngâm • Bổ dưỡng',
+    tags: ['Rượu', 'Sâm cau', 'Tăng lực'],
+    image: './img/ruou_sam_cau.jpg',
+    description: '<p>Rượu ngâm sâm cau Tân Sơn Natural có vị nồng ấm, hơi ngọt và hương thảo dược đặc trưng. Sản phẩm nổi bật về công dụng bổ dưỡng, hỗ trợ tiêu hóa và giúp phục hồi sức khỏe sau những ngày làm việc căng thẳng.</p>' +
+      '<p>Sâm cau được chọn lựa kỹ càng để đảm bảo độ ấm và hiệu quả, đồng thời giữ lại hương vị truyền thống. Rượu phù hợp dùng trong mùa lạnh hoặc khi cơ thể cần bổ sung sinh lực.</p>' +
+      '<p>Thưởng thức ấm để cảm nhận rõ vị rượu sâu và hậu ngọt dịu, cùng cảm giác dễ chịu khi thư giãn sau bữa ăn.</p>'
+  },
+  'ruou-sam-hoang-ky': {
+    title: 'RƯỢU NGÂM SÂM HOÀNG KỲ NAM',
+    meta: 'Rượu ngâm • Sâm quý',
+    tags: ['Rượu', 'Sâm', 'Bổi dưỡng'],
+    image: './img/ruou_7_loai.jpg',
+    description: '<p>Rượu ngâm sâm hoàng kỳ nam là kết quả của việc chọn lựa dược liệu quý và quy trình ngâm ngặt nghèo, tạo nên hương vị nồng ấm, sâu lắng và dễ chịu trên vòm miệng. Sản phẩm là sự hòa quyện giữa vị rượu truyền thống và vị thuốc bổ dưỡng.</p>' +
+      '<p>Rượu giúp tăng cường sức khỏe, bổ dưỡng khí huyết và hỗ trợ cơ thể phục hồi sau mệt mỏi. Sâm hoàng kỳ nam được ngâm trong môi trường sạch, bảo quản đúng cách để giữ được dược tính tối ưu.</p>' +
+      '<p>Thưởng thức ấm hoặc ở nhiệt độ phòng để cảm nhận đầy đủ hương thơm và hậu ngọt. Sản phẩm rất phù hợp dùng vào mùa lạnh hoặc khi cần chăm sóc sức khỏe theo cách tự nhiên.</p>'
+  },
+  'ruou-tam-that': {
+    title: 'RƯỢU NGÂM TAM THẤT',
+    meta: 'Rượu ngâm • Trị liệu',
+    tags: ['Rượu', 'Tam thất', 'Phục hồi'],
+    image: './img/ruou_tam_that.jpg',
+    description: '<p>Rượu ngâm tam thất là thức uống thảo dược truyền thống giúp hỗ trợ tuần hoàn máu và sức khỏe xương khớp. Hương vị ấm, dịu nhẹ và có hậu ngọt tự nhiên, rất phù hợp với những ai muốn chăm sóc cơ thể lâu dài.</p>' +
+      '<p>Sản phẩm được ngâm từ tam thất chất lượng cao trong rượu ngon, giữ lại dược tính mạnh mẽ nhưng vẫn dễ uống. Đây là lựa chọn bổ dưỡng cho người cao tuổi hoặc những người cần phục hồi sức khỏe.</p>' +
+      '<p>Uống một lượng nhỏ mỗi ngày để cảm nhận hiệu quả từ thảo dược, đồng thời dùng làm quà biếu cho người thân ý nghĩa và thiết thực.</p>'
+  },
+  'ruou-7-vi': {
+    title: 'RƯỢU NGÂM 7 VỊ',
+    meta: 'Rượu ngâm • Hương vị hỗn hợp',
+    tags: ['Rượu', '7 vị', 'Phức hợp'],
+    image: './img/ruou_7_loai.jpg',
+    description: '<p>Rượu ngâm 7 vị là tổng hòa của bảy loại dược liệu quý, tạo nên một hương vị phức hợp hài hòa giữa cay, ngọt và ấm. Mỗi vị thuốc được kết hợp tinh tế để mang đến hiệu quả chăm sóc toàn diện cho cơ thể.</p>' +
+      '<p>Sản phẩm phù hợp với người muốn thưởng thức rượu thảo dược phong phú, đồng thời tăng cường sức khỏe theo cách tự nhiên. Quá trình ngâm chuẩn mực giúp lưu giữ nguyên dược tính và mang đến hương thơm sâu sắc.</p>' +
+      '<p>Uống điều độ và nhẹ nhàng, rượu ngâm 7 vị đem đến cảm giác dễ chịu, ấm áp và hỗ trợ lưu thông khí huyết. Đây cũng là lựa chọn quà biếu sang trọng, phù hợp cho nhiều đối tượng.</p>'
+  }
+};
+
+const product = products[productKey];
+if (product) {
+  document.getElementById('product-title').textContent = product.title;
+  document.getElementById('product-meta').textContent = product.meta;
+  document.getElementById('product-image').src = product.image;
+  document.getElementById('product-image').alt = product.title;
+  document.getElementById('product-description').innerHTML = product.description;
+  const title = document.getElementById('product-title');
+} else {
+  document.getElementById('product-title').textContent = 'Sản phẩm không tồn tại';
+  document.getElementById('product-meta').textContent = 'Vui lòng quay lại danh sách';
+  document.getElementById('product-description').innerHTML = '<p>Không tìm thấy sản phẩm bạn yêu cầu. Vui lòng quay lại cửa hàng để chọn sản phẩm khác.</p>';
+  document.getElementById('product-image').src = './img/bg.png';
+  document.getElementById('product-tags').innerHTML = '';
+  document.getElementById('detail-order').style.display = 'none';
+}
+
+const nav = document.getElementById('nav');
+console.log('Nav element:', nav);
+// ── Nav scroll ───────────────────────────
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('solid', window.scrollY > 50);
+}, {passive:true});
+
+
+// const ham = document.getElementById('ham');
+// const mobMenu = document.getElementById('mob-menu');
+// let menuOpen = false;
+// window.addEventListener('scroll', () => {
+//   if (nav) nav.classList.toggle('solid', window.scrollY > 50);
+// }, {passive:true});
+// if (ham && mobMenu) {
+//   ham.addEventListener('click', () => {
+//     menuOpen = !menuOpen;
+//     mobMenu.style.display = menuOpen ? 'flex' : 'none';
+//     ham.children[0].style.transform = menuOpen ? 'rotate(45deg) translate(5px,5px)' : '';
+//     ham.children[1].style.opacity = menuOpen ? '0' : '1';
+//     ham.children[2].style.transform = menuOpen ? 'rotate(-45deg) translate(5px,-5px)' : '';
+//   });
+//   document.querySelectorAll('.mob-link').forEach(l => {
+//     l.addEventListener('click', () => {
+//       menuOpen = false;
+//       mobMenu.style.display = 'none';
+//       ham.children[0].style.transform = '';
+//       ham.children[1].style.opacity = '1';
+//       ham.children[2].style.transform = '';
+//     });
+//   });
+// }
+</script>
+</body>
+</html>
